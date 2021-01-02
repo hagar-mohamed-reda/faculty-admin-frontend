@@ -1,0 +1,116 @@
+<app-breadcrumb [breadcrumbList]="breadcrumbData"  ></app-breadcrumb>
+
+<div class="w3-light-gray w3-block w3-padding filter-section">
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6">
+      <label class="w3-text-dark-gray" >{{ 'search with name or  phone' | trans }}</label>
+      <input type="text"  class="app-select"  ngModel >
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-6">
+      <label class="w3-text-dark-gray" >{{ "search with division" | trans }}</label>
+      <select class="app-select" >
+        <option value="">{{ "division" | trans }}</option>
+      </select>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-6">
+      <label class="w3-text-dark-gray" >{{ "search with sepcial" | trans }}</label>
+      <select class="app-select" >
+        <option value="">{{ "sepcial" | trans }}</option>
+      </select>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-6">
+      <label class="w3-text-dark-gray" >{{ "search with degree" | trans }}</label>
+      <select class="app-select" >
+        <option value="">{{ "degree" | trans }}</option>
+      </select>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-6">
+      <label class="w3-text-dark-gray" >{{ "search with faculty" | trans }}</label>
+      <select class="app-select" >
+        <option value="">{{ "faculty" | trans }}</option>
+      </select>
+    </div>
+  </div>
+  <br>
+</div>
+
+<br>
+
+<div class="w3-row">
+
+  <div class="col-lg-2 col-md-3 w3-padding">
+    <div class="w3-light-gray w3-round-large w3-padding">
+
+      <button mat-raised-button class="w3-block w3-indigo w3-row app-button" (click)="create()" >
+        <b class="w3-right" >{{ "add doctor" | trans }}</b>
+        <i class="fa fa-plus-circle w3-left" style="padding-top: 10px;" ></i>
+      </button>
+
+      <button mat-raised-button class="w3-block w3-green w3-row app-button" (click)="import()" >
+        <b class="w3-right" >{{ "import excel" | trans }}</b>
+        <i class="fa fa-file-excel-o w3-left" style="padding-top: 10px;"></i>
+      </button>
+
+      <button mat-raised-button class="w3-block w3-teal w3-row app-button" (click)="export()"  >
+        <b class="w3-right" >{{ "export excel" | trans }}</b>
+        <i class="fa fa-file-excel-o w3-left" style="padding-top: 10px;"></i>
+      </button>
+
+      <button mat-raised-button class="w3-block w3-red w3-row app-button" >
+        <b class="w3-right" >{{ "show archive" | trans }}</b>
+        <i class="fa fa-archive w3-left" style="padding-top: 10px;"></i>
+      </button>
+
+    </div>
+  </div>
+
+  <div class="col-lg-10 col-md-9">
+    <div class="row w3-padding">
+
+      <div class="col-lg-4 col-md-4 col-sm-6">
+        <div class="media material-shadow w3-white w3-round w3-display-container">
+          <div class="media-left" style="padding: 5px">
+            <a href="#" >
+              <div class="w3-round" style="width: 100px;height: 100px;background-image: url(/assets/img/avatar.png);background-size: cover" ></div>
+            </a>
+          </div>
+          <div class="media-body w3-padding">
+            <h5 class="media-heading w3- ">doctor name</h5>
+            <table class="w3-tiny" >
+              <tr>
+                <th>{{ "division" | trans }}</th>
+                <td>first</td>
+              </tr>
+              <tr>
+                <th>{{ "secial" | trans }}</th>
+                <td>first</td>
+              </tr>
+            </table>
+            <div>
+              <button class="btn fa fa-edit w3-orange material-shadow " style="padding: 5px!important;margin: 5px" (click)="edit({})" ></button>
+              <button class="btn fa fa-desktop w3-green material-shadow hidden" style="padding: 5px!important;margin: 5px" ></button>
+              <button class="btn fa fa-archive w3-red material-shadow" style="padding: 5px!important;margin: 5px" (click)="archive()" ></button>
+            </div>
+          </div>
+
+          <div class="w3-display-topleft w3-padding">
+            <span class="label label-danger" >{{ "archive" | trans }}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
+
+
+
+<app-doctor-form [title]="'add doctor'" ></app-doctor-form>
+
+<app-doctor-form [title]="'edit doctor'" [editable]="true" [resource]="resource" ></app-doctor-form>
+
+<app-import-excel [title]="'import doctors from excel file'" ></app-import-excel>
+
+<app-export-excel [title]="'export doctors to excel file'" [fields]="fields" ></app-export-excel>
