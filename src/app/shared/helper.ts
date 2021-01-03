@@ -22,6 +22,7 @@ export class Helper {
    * @param word
    */
   public static trans(word: string) {
+    return word;
     word = word.replace(/\s/g, '_');
     word = word.toLocaleLowerCase();
     // load translations from cache

@@ -28,6 +28,13 @@ import { StudentFormComponent } from './components/student/student-form/student-
 import { MatSliderModule, MatSlideToggleModule } from '@angular/material';
 import { DoctorIndexComponent } from './components/doctor/doctor-index/doctor-index.component';
 import { DoctorFormComponent } from './components/doctor/doctor-form/doctor-form.component';
+import { CourseIndexComponent } from './components/course/course-index/course-index.component';
+import { CourseFormComponent } from './components/course/course-form/course-form.component';
+import { CourseShowComponent } from './components/course/course-show/course-show.component';
+import { CourseRegisterDoctorComponent } from './components/course/course-register-doctor/course-register-doctor.component';
+import { CourseRegisterStudentComponent } from './components/course/course-register-student/course-register-student.component';
+import { UserIndexComponent } from './components/user/user-index/user-index.component';
+import { UserFormComponent } from './components/user/user-form/user-form.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +46,14 @@ import { DoctorFormComponent } from './components/doctor/doctor-form/doctor-form
     StudentIndexComponent,
     StudentFormComponent,
     DoctorIndexComponent,
-    DoctorFormComponent
+    DoctorFormComponent,
+    CourseIndexComponent,
+    CourseFormComponent,
+    CourseShowComponent,
+    CourseRegisterDoctorComponent,
+    CourseRegisterStudentComponent,
+    UserIndexComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,

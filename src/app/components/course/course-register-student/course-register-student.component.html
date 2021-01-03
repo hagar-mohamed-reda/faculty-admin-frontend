@@ -1,0 +1,44 @@
+<div class="modal fade" id="registerCourseToStudent" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content light-gray">
+      <div class="modal-header w3-border-0" >
+        <button type="button" class="close w3-text-red" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">{{ "register course to students" | trans }}</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="w3-ul" >
+          <li>
+            <input type="text" class="app-form" placeholder="{{ 'search' | trans }}" >
+          </li>
+          <li class="w3-display-container" >
+            <div class="media">
+              <div class="media-left">
+                <a>
+                  <div class="w3-round" style="width: 40px;height: 40px;background-image: url(/assets/img/avatar.png);background-size: cover" ></div>
+                </a>
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">{{ "student name" }}</h4>
+                <table class="w3-tiny" >
+                  <tr>
+                    <th>{{ "department" | trans }} : first</th>
+                  </tr>
+                  <tr>
+                    <th>{{ "level" | trans }} : first</th>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="w3-display-topleft w3-padding">
+              <mat-slide-toggle [(ngModel)]="course.active" [checked]="course.active">
+              </mat-slide-toggle>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer w3-center">
+        <button mat-raised-button class="w3-indigo" >{{ "save" | trans }}</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

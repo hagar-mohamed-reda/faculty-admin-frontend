@@ -1,0 +1,96 @@
+<app-breadcrumb [breadcrumbList]="breadcrumbData"  ></app-breadcrumb>
+
+<div class="w3-light-gray w3-block w3-padding filter-section">
+  <div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-6">
+      <label class="w3-text-dark-gray" >{{ 'search with name' | trans }}</label>
+      <input type="text"  class="app-select"    >
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-6">
+      <label class="w3-text-dark-gray" >{{ "search with active" | trans }}</label>
+      <select class="app-select" >
+        <option value="">{{ "active" | trans }}</option>
+      </select>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-6">
+      <label class="w3-text-dark-gray" >{{ "search with level" | trans }}</label>
+      <select class="app-select" >
+        <option value="">{{ "level" | trans }}</option>
+      </select>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-6">
+      <label class="w3-text-dark-gray" >{{ "search with faculty" | trans }}</label>
+      <select class="app-select" >
+        <option value="">{{ "faculty" | trans }}</option>
+      </select>
+    </div>
+  </div>
+  <br>
+</div>
+
+<br>
+
+<div class="w3-row">
+
+  <div class="col-lg-2 col-md-3 w3-padding">
+    <div class="w3-light-gray w3-round-large w3-padding">
+
+      <button mat-raised-button class="w3-block w3-indigo w3-row app-button" (click)="create()" >
+        <b class="w3-right" >{{ "add course" | trans }}</b>
+        <i class="fa fa-plus-circle w3-left" style="padding-top: 10px;" ></i>
+      </button>
+
+      <button mat-raised-button class="w3-block w3-green w3-row app-button" (click)="import()" >
+        <b class="w3-right" >{{ "import excel" | trans }}</b>
+        <i class="fa fa-file-excel-o w3-left" style="padding-top: 10px;"></i>
+      </button>
+
+      <button mat-raised-button class="w3-block w3-teal w3-row app-button" (click)="export()"  >
+        <b class="w3-right" >{{ "export excel" | trans }}</b>
+        <i class="fa fa-file-excel-o w3-left" style="padding-top: 10px;"></i>
+      </button>
+
+      <button mat-raised-button class="w3-block w3-red w3-row app-button" >
+        <b class="w3-right" >{{ "show archive" | trans }}</b>
+        <i class="fa fa-archive w3-left" style="padding-top: 10px;"></i>
+      </button>
+
+    </div>
+  </div>
+
+  <div class="col-lg-10 col-md-9">
+    <div class="row w3-padding">
+
+      <div class="col-lg-2 col-md-3 col-sm-4">
+        <div class="material-shadow w3-white w3-round w3-display-container w3-block">
+          <div class="w3-round" style="width: 100%;height: 150px;background-image: url(/assets/img/avatar.png);background-size: cover" ></div>
+          <div class="w3-padding text-center">
+            <b>course name</b>
+            <br>
+          </div>
+          <div class="text-center" >
+            <button class="btn fa fa-edit w3-orange material-shadow " style="padding: 5px!important;margin: 5px" (click)="edit({})" ></button>
+            <button class="btn fa fa-desktop w3-green material-shadow" style="padding: 5px!important;margin: 5px" routerLink="/courses/1" ></button>
+            <button class="btn fa fa-archive w3-red material-shadow" style="padding: 5px!important;margin: 5px" (click)="archive()" ></button>
+          </div>
+          <div class="w3-display-topleft" style="padding: 5px" >
+            <span class="label label-danger" >{{ "archive" | trans }}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
+
+
+
+<app-course-form [title]="'add course'" ></app-course-form>
+
+<app-course-form [title]="'edit course'" [editable]="true" [resource]="resource" ></app-course-form>
+
+<app-import-excel [title]="'import courses from excel file'" ></app-import-excel>
+
+<app-export-excel [title]="'export courses to excel file'" [fields]="fields" ></app-export-excel>

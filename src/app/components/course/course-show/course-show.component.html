@@ -1,0 +1,204 @@
+<app-breadcrumb [breadcrumbList]="breadcrumbData"  ></app-breadcrumb>
+<br>
+<div class="w3-padding">
+  <div class="row">
+    <div class="col-md-3 w3-padding">
+
+      <!-- Profile Image -->
+      <div class="box box-primary">
+        <div class="box-body box-profile">
+          <img class="profile-user-img img-responsive img-circle" src="/assets/img/application.gif" alt="User profile picture">
+
+          <h3 class="profile-username text-center">Course name</h3>
+
+
+          <ul class="list-group list-group-unbordered">
+            <li class="list-group-item">
+              <b>{{ "student register" | trans }}</b> <a class="pull-left">1,322</a>
+            </li>
+            <li class="list-group-item">
+              <b>{{ "doctor register" | trans }}</b> <a class="pull-left">543</a>
+            </li>
+            <li class="list-group-item">
+              <b>{{ "departments" | trans }}</b> <a class="pull-left">4</a>
+            </li>
+          </ul>
+
+          <button mat-raised-button class="btn w3-teal app-button btn-block" (click)="registerStudentFromExcel()" >
+            <b class="w3-right" >{{"register student from excel" | trans}}</b>
+            <b class="w3-left fa fa-file-excel-o" style="padding-top: 9px" ></b>
+          </button>
+          <br>
+          <button mat-raised-button class="btn w3-dark-gray app-button btn-block" (click)="registerStudentModal()" >
+            <b class="w3-right" >{{"register student manual" | trans}}</b>
+            <b class="w3-left fa fa-hand-pointer-o" style="padding-top: 9px" ></b>
+          </button>
+          <br>
+          <button mat-raised-button class="btn w3-indigo app-button btn-block" (click)="registerDoctorModal()" >
+            <b class="w3-right" >{{"register doctor" | trans}}</b>
+            <b class="w3-left fa fa-briefcase" style="padding-top: 9px" ></b>
+          </button>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+
+      <!-- About Me Box -->
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">{{ "course info" | trans }}</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <strong><i class="fa fa-book margin-r-5"></i> {{"description" | trans}}</strong>
+
+          <p class="text-muted">
+            {{ resource.description }}
+          </p>
+
+          <hr>
+
+          <strong><i class="fa fa-map-marker margin-r-5"></i> {{"credit_hour" | trans}}</strong>
+
+          <p class="text-muted">{{ resource.credit_hour }}</p>
+
+          <hr>
+
+          <strong><i class="fa fa-level-up margin-r-5"></i> {{"level" | trans}}</strong>
+
+          <p class="text-muted">{{ resource.level }}</p>
+
+          <hr>
+
+          <strong><i class="fa fa-graduation-cap margin-r-5"></i> {{"large_degree" | trans}}</strong>
+
+          <p class="text-muted">{{ resource.large_degree }}</p>
+
+          <hr>
+
+          <strong><i class="fa fa-check-o margin-r-5"></i> {{"active" | trans}}</strong>
+
+          <p class="text-muted">{{ resource.active }}</p>
+
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-9 w3-padding">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#groups" data-toggle="tab">{{ "groups" | trans }}</a></li>
+          <li><a href="#studentRegister" data-toggle="tab">{{ "student register" | trans }}</a></li>
+          <li><a href="#doctorRegister" data-toggle="tab">{{ "doctor register" | trans }}</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="active tab-pane" id="groups">
+            <table class=" table-bordered" >
+              <thead>
+                <th>#</th>
+                <th>{{ "name" | trans }}</th>
+                <th>{{ "number" | trans }}</th>
+                <th></th>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let item of group.data index as i" >
+                  <tr  >
+                    <td>{{ i + 1 }}</td>
+                    <td>
+                      <input type="text"  class="app-form input-sm" [(ngModel)]="item.name" >
+                    </td>
+                    <td>
+                      <input type="text"  class="app-form input-sm" [(ngModel)]="item.number" >
+                    </td>
+                    <td>
+                    <div style="width: 90px" >
+                      <button class="btn btn-success"
+                      [disabled]="group.isSubmitted"
+                      (click)="group.send(item, i)" >
+                      <i *ngIf="!group.isSubmitted" class="fa fa-check" ></i>
+                      <i *ngIf="group.isSubmitted" class="fa fa-spin fa-spinner" ></i>
+                    </button>
+                      <button class="btn btn-danger"
+                      *ngIf="item.can_delete || !item.id"
+                      [disabled]="group.isSubmitted"
+                      (click)="group.destroy(item, i)" >
+                        <i *ngIf="!group.isSubmitted" class="fa fa-trash" ></i>
+                        <i *ngIf="group.isSubmitted" class="fa fa-spin fa-spinner" ></i>
+                      </button>
+                    </div>
+                    </td>
+                  </tr>
+                </ng-container>
+                <tr>
+                  <td></td>
+                  <td colspan="2" >
+                    <button class="fa fa-plus w3-block btn btn-default btn-flat" (click)="group.add()" ></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.tab-pane -->
+          <div class="tab-pane" id="studentRegister">
+             <table class="table table-bordered">
+               <thead>
+                 <th>#</th>
+                 <th>{{ "student" | trans }}</th>
+                 <th>{{ "code" | trans }}</th>
+                 <th>{{ "level" | trans }}</th>
+                 <th>{{ "department" | trans }}</th>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td>1</td>
+                   <td>name</td>
+                   <td>3243342</td>
+                   <td>first</td>
+                   <td>IT</td>
+                 </tr>
+               </tbody>
+             </table>
+          </div>
+          <!-- /.tab-pane -->
+
+          <div class="tab-pane" id="doctorRegister">
+            <table class="table table-bordered">
+              <thead>
+                <th>#</th>
+                <th>{{ "doctor" | trans }}</th>
+                <th>{{ "phone" | trans }}</th>
+                <th>{{ "special" | trans }}</th>
+                <th>{{ "department" | trans }}</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>name</td>
+                  <td>3243342</td>
+                  <td>AI</td>
+                  <td>IT</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.tab-pane -->
+        </div>
+        <!-- /.tab-content -->
+      </div>
+      <!-- /.nav-tabs-custom -->
+    </div>
+    <!-- /.col -->
+  </div>
+
+</div>
+
+
+
+<app-import-excel [title]="'register student from excel file'" ></app-import-excel>
+
+
+<app-course-register-doctor></app-course-register-doctor>
+
+<app-course-register-student></app-course-register-student>

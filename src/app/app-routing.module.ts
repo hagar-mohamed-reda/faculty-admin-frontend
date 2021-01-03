@@ -6,6 +6,9 @@ import { AuthGuardService } from './shared/middlewares/auth-guard.service';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { StudentIndexComponent } from './components/student/student-index/student-index.component';
 import { DoctorIndexComponent } from './components/doctor/doctor-index/doctor-index.component';
+import { CourseIndexComponent } from './components/course/course-index/course-index.component';
+import { CourseShowComponent } from './components/course/course-show/course-show.component';
+import { UserIndexComponent } from './components/user/user-index/user-index.component';
 
 const routes: Routes = [
 
@@ -27,12 +30,24 @@ const routes: Routes = [
         component: DoctorIndexComponent
       },
       {
+        path: 'courses',
+        component: CourseIndexComponent
+      },
+      {
+        path: 'courses/:id',
+        component: CourseShowComponent
+      },
+      {
         path: 'profile',
         component: UserProfileComponent
       },
       {
         path: 'users',
-        loadChildren: './user/user.module#UserModule'
+        component: UserIndexComponent
+      },
+      {
+        path: 'settings',
+        loadChildren: './settings/settings.module#SettingModule'
       },
      /* {
         path: 'dashboard',

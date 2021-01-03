@@ -1,0 +1,62 @@
+<div class="modal fade" id="{{ editable? 'studentEditModal' : 'studentAddModal' }}" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content light-gray">
+      <div class="modal-header w3-border-0" >
+        <button type="button" class="close w3-text-red" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">{{ title | trans }}</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table" >
+          <tr>
+            <td  colspan="2">
+              <img [src]="resource.url" alt="">
+              <input type="file" class="app-form" (change)="loadFile()" [(ngModel)]="resource.image" >
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "name" }}</th>
+            <td>
+              <input type="text" class="app-form" [(ngModel)]="resource.name" >
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "code" }}</th>
+            <td>
+              <input type="text" class="app-form" [(ngModel)]="resource.code" >
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "large_degree" }}</th>
+            <td>
+              <input type="number" class="app-form" [(ngModel)]="resource.large_degree" >
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "level" }}</th>
+            <td>
+              <select class="app-form" [(ngModel)]="resource.level_id">
+                <option *ngFor="let level of levels" value="{{ level.id }}" >{{ level.name }}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "description" }}</th>
+            <td>
+              <textarea class="app-form" [(ngModel)]="resource.phone" ></textarea>
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "active" }}</th>
+            <td>
+              <mat-slide-toggle [(ngModel)]="resource.active" [checked]="resource.active">
+              </mat-slide-toggle>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer w3-center">
+        <button mat-raised-button class="w3-indigo" >{{ "submit" | trans }}</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
