@@ -9,6 +9,7 @@ import { DoctorIndexComponent } from './components/doctor/doctor-index/doctor-in
 import { CourseIndexComponent } from './components/course/course-index/course-index.component';
 import { CourseShowComponent } from './components/course/course-show/course-show.component';
 import { UserIndexComponent } from './components/user/user-index/user-index.component';
+import { MainPageComponent } from './core/components/main-page/main-page.component';
 
 const routes: Routes = [
 
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: 'courses',
         component: CourseIndexComponent
+      },
+      {
+        path: 'main',
+        component: MainPageComponent
       },
       {
         path: 'courses/:id',

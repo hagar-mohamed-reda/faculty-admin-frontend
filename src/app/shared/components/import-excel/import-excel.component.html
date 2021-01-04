@@ -11,7 +11,7 @@
           <div class="text-center">
             <a role="button" target="_blank" [href]="templateUrl" mat-raised-button
             class="w3-large btn material-shadow w3-round circle" >
-              <span class="fa fa-download" ></span> {{ "download template file" }}
+              <span class="fa fa-download" ></span> {{ "download template file" | trans }}
             </a>
           </div>
           <br>
@@ -38,7 +38,7 @@
             <button role="button"  mat-raised-button
             (click)="changeFileInput()"
             class="w3-large btn material-shadow w3-round circle" >
-              <span class="fa fa-upload" ></span> {{ "upload your file" }}
+              <span class="fa fa-upload" ></span> {{ "upload your file" | trans }}
             </button>
             <input type="file" (change)="changeFile($event)"  id="importExcelFileInput" class="hidden" >
           </div>
@@ -55,7 +55,7 @@
             mat-raised-button
             [disabled]="isSubmitted"
             class="w3-indigo" (click)="uploadFile()" style="margin: 3px" >
-              <span *ngIf="!isSubmitted" >{{ "upload" | trans }}</span>
+              <span *ngIf="!isSubmitted" >{{ "submit" | trans }}</span>
               <span *ngIf="isSubmitted" class="fa fa-spinner fa-spin" ></span>
             </button>
             <button mat-raised-button class="w3-" (click)="goto(1)" style="margin: 3px" >{{ "back" | trans }}</button>

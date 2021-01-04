@@ -12,7 +12,7 @@ export class FacultyComponent extends SettingTemplate implements OnInit {
 
   constructor(public settingService: SettingService) {
     super(settingService);
-    this.baseUrl = "faculty";
+    this.baseUrl = "facultys";
     this.requiredFields = ['name'];
     this.get();
   }

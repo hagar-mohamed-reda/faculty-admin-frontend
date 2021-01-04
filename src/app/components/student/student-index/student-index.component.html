@@ -8,20 +8,25 @@
     </div>
     <div class="col-lg-2 col-md-2 col-sm-6">
       <label class="w3-text-dark-gray" >{{ "search with level" | trans }}</label>
-      <select class="app-select" >
-        <option value="">{{ "level" | trans }}</option>
+      <select class="app-select" [(ngModel)]="filter.level_id" >
+        <option value="">{{ "select all" | trans }}</option>
+        <option *ngFor="let item of levels" value="{{ item.id }}" >{{ item.name }}</option>
       </select>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-6">
       <label class="w3-text-dark-gray" >{{ "search with department" | trans }}</label>
-      <select class="app-select" >
-        <option value="">{{ "department" | trans }}</option>
+      <select class="app-select" [(ngModel)]="filter.department_id"  >
+        <option value="">{{ "select all" | trans }}</option>
+        <ng-container *ngFor="let item of departments" >
+          <option *ngIf="item.level_id == filter.level_id"  value="{{ item.id }}" >{{ item.name }}</option>
+        </ng-container>
       </select>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-6">
       <label class="w3-text-dark-gray" >{{ "search with type" | trans }}</label>
       <select class="app-select" >
-        <option value="">{{ "type" | trans }}</option>
+        <option value="">{{ "select all" | trans }}</option>
+        <option *ngFor="let item of types" value="{{ item }}" >{{ item | trans }}</option>
       </select>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-6">
@@ -38,7 +43,7 @@
 
 <div class="w3-row">
 
-  <div class="col-lg-2 col-md-3 w3-padding">
+  <div class="col-lg-3 col-md-3 w3-padding">
     <div class="w3-light-gray w3-round-large w3-padding">
 
       <button mat-raised-button class="w3-block w3-indigo w3-row app-button" (click)="create()" >
@@ -64,10 +69,10 @@
     </div>
   </div>
 
-  <div class="col-lg-10 col-md-9">
+  <div class="col-lg-9 col-md-9">
     <div class="row w3-padding">
 
-      <div class="col-lg-4 col-md-4 col-sm-6">
+      <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="media material-shadow w3-white w3-round w3-display-container">
           <div class="media-left" style="padding: 5px">
             <a href="#" >
@@ -111,6 +116,6 @@
 
 <app-student-form [title]="'edit student'" [editable]="true" [resource]="resource" ></app-student-form>
 
-<app-import-excel [title]="'import students from excel file'" ></app-import-excel>
+<app-import-excel [templateUrl]="importTemplateUrl" [title]="'import students from excel file'" ></app-import-excel>
 
 <app-export-excel [title]="'export students to excel file'" [fields]="fields" ></app-export-excel>

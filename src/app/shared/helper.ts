@@ -5,7 +5,11 @@ import { Translation } from './translation';
 export class Helper {
 
 
-
+  /**
+   *  reload angular component
+   * @param router
+   * @param url
+   */
   public static refreshComponent(router: Router, url) {
     router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       router.navigate([url]);
@@ -22,7 +26,6 @@ export class Helper {
    * @param word
    */
   public static trans(word: string) {
-    return word;
     word = word.replace(/\s/g, '_');
     word = word.toLocaleLowerCase();
     // load translations from cache
@@ -35,16 +38,29 @@ export class Helper {
     return word;
   }
 
+  /**
+   * printi html table
+   *
+   */
   public static print() {
     let doc: any = document;
     doc.printJs();
   }
 
 
+  /**
+   * set file object to model from input file
+   *
+   */
   public static setFile(event, key, model) {
     model[key] = event.target.files[0];
   }
 
+  /**
+   * convert file object from input file
+   * to image url
+   *
+   */
   public static loadImage(event, key, model) {
     Helper.setFile(event, key, model);
     var reader = new FileReader();
@@ -52,6 +68,21 @@ export class Helper {
     reader.onload = (_event) => {
       model[key+"_url"] = reader.result;
     }
+  }
+
+  /**
+   * validate on object from array of attributes
+   *
+   * @param model
+   * @param requireds
+   */
+  public static validator(model, attributes: any) {
+    let valid = true;
+    attributes.forEach(element => {
+      if (!model[element])
+        valid = false;
+    });
+    return valid;
   }
 
   /**
@@ -64,5 +95,18 @@ export class Helper {
     window.open(url, "_blank", options);
   }
 
+  /**
+   * convert javascript object to formData object
+   * @param resource java script object
+   * @returns FormData object
+   */
+  public static toFormData(resource) {
+    let data = new FormData();
+    for(let key of Object.keys(resource)) {
+      if(resource[key])
+        data.append(key, resource[key]);
+    }
+    return data;
+  }
 }
 

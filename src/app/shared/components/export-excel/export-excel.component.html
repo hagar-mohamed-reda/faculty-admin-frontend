@@ -27,7 +27,7 @@
               <div class="export-item">
                 <mat-slide-toggle  [checked]="selectFields.has(item)" (change)="toggleField(item)" >
                 </mat-slide-toggle>
-                <b style="padding: 3px" >{{ item }}</b>
+                <b style="padding: 3px" >{{ item | trans }}</b>
               </div>
             </div>
           </div>
@@ -36,7 +36,7 @@
             <a role="button" target="_blank"  mat-raised-button
             (click)="downloadFile()"
             class="w3-large btn material-shadow w3-round circle" >
-              <span class="fa fa-download" ></span> {{ "download file" }}
+              <span class="fa fa-download" ></span> {{ "download file" | trans }}
             </a>
           </div>
         </div>

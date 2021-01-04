@@ -12,7 +12,7 @@ export class DegreeMapComponent extends SettingTemplate implements OnInit {
 
   constructor(public settingService: SettingService) {
     super(settingService);
-    this.baseUrl = "degree_map";
+    this.baseUrl = "degree-map";
     this.requiredFields = ['name', 'gpa', 'key', 'percent_from', 'percent_to'];
     this.get();
   }

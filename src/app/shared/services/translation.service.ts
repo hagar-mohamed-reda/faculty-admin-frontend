@@ -16,7 +16,7 @@ export class TranslationService {
    *
    */
   public getList(data) {
-    return this.http.get('translation/get?api_token=' + Auth.getApiToken() + "&"+this.$.param(data),);
+    return this.http.get('translations/get?api_token=' + Auth.getApiToken() + "&"+this.$.param(data),);
   }
 
   /**
@@ -24,14 +24,14 @@ export class TranslationService {
    *
    */
   public get() {
-    return this.http.get('translation?api_token=' + Auth.getApiToken());
+    return this.http.get('translations?api_token=' + Auth.getApiToken());
   }
 
   /**
    * store new service
    */
   public update(data) {
-    return this.http.post('translation/update' + '?api_token=' + Auth.getApiToken(), data);
+    return this.http.post('translations/update' + '?api_token=' + Auth.getApiToken(), data);
   }
 
 }

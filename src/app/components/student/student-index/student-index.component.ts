@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Helper } from 'src/app/shared/helper';
 import { Message } from 'src/app/shared/message';
+import { GlobalService } from 'src/app/shared/services/global.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-student-index',
@@ -34,14 +36,52 @@ export class StudentIndexComponent implements OnInit {
   public resource: any = {};
 
   /**
+   * select item to edit it
+   *
+   */
+  public levels: any = [];
+
+  /**
+   * types of student
+   *
+   */
+  public types: any = [];
+
+  /**
+   * select item to edit it
+   *
+   */
+  public departments: any = [];
+
+  /**
    * fields of student table
    *
    */
   public fields: any = [
-    'id', 'name', 'username', 'level_id', 'department_id', 'code', 'phone'
+    'name',
+    'username',
+    'password',
+    'level_id',
+    'department_id',
+    'division_id',
+    'faculty_id',
+    'code',
+    'phone',
+    'email',
+    'national_id',
+    'active',
+    'type',
+    'created_at',
+    'updated_at'
   ];
 
-  constructor() { }
+  /**
+   * url of excel template file
+   *
+   */
+  public importTemplateUrl = environment.publicUrl + "/uploads/excel/add_student_template.xlsx";
+
+  constructor(private globalService: GlobalService) { }
 
   /**
    * init items of breadcrumb
@@ -97,8 +137,26 @@ export class StudentIndexComponent implements OnInit {
     });
   }
 
+  /**
+   * load all filter data
+   * load levels
+   * load types
+   * load departments
+   * load faculties
+   */
+  loadSettings() {
+    this.globalService.get("levels").subscribe((r) => {
+      this.levels = r;
+    });
+    this.globalService.get("departments").subscribe((r) => {
+      this.departments = r;
+    });
+    this.types = ['normal', 'graduation'];
+  }
+
   ngOnInit() {
     this.initBreadcrumbData();
+    this.loadSettings();
   }
 
 }

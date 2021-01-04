@@ -12,7 +12,7 @@ export class AcademicYearComponent extends SettingTemplate implements OnInit {
 
   constructor(public settingService: SettingService) {
     super(settingService);
-    this.baseUrl = "academic_years";
+    this.baseUrl = "academic-years";
     this.requiredFields = ['start_date', 'end_date'];
     this.get();
   }

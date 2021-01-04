@@ -7,56 +7,60 @@
       </div>
       <div class="modal-body">
         <table class="table" >
-          <tr>
+          <tr class="hidden" >
             <td  colspan="2">
-              <img [src]="resource.url" alt="">
-              <input type="file" class="app-form" (change)="loadFile()" [(ngModel)]="resource.image" >
+              <img
+              [src]="resource.url" alt=""
+              (click)="$('.image-fileinput').click()"
+              class="w3-round" height="100px" style="cursor: pointer;" >
+              <input type="file" class="app-form hidden image-fileinput" (change)="loadFile($event)" [(ngModel)]="resource.image" >
+              <br>
             </td>
           </tr>
           <tr>
-            <th>{{ "name" }}</th>
+            <th>{{ "name" | trans }} *</th>
             <td>
               <input type="text" class="app-form" [(ngModel)]="resource.name" >
             </td>
           </tr>
           <tr>
-            <th>{{ "code" }}</th>
+            <th>{{ "code" | trans }} *</th>
             <td>
               <input type="text" class="app-form" [(ngModel)]="resource.code" >
             </td>
           </tr>
           <tr>
-            <th>{{ "phone" }}</th>
+            <th>{{ "phone" | trans }} *</th>
             <td>
               <input type="text" class="app-form" [(ngModel)]="resource.phone" >
             </td>
           </tr>
           <tr>
-            <th>{{ "email" }}</th>
-            <td>
-              <input type="email" class="app-form" [(ngModel)]="resource.email" >
-            </td>
-          </tr>
-          <tr>
-            <th>{{ "national_id" }}</th>
+            <th>{{ "national_id" | trans }} *</th>
             <td>
               <input type="text" class="app-form" [(ngModel)]="resource.national_id" >
             </td>
           </tr>
           <tr>
-            <th>{{ "username" }}</th>
+            <th>{{ "username" | trans }} *</th>
             <td>
               <input type="text" class="app-form" [(ngModel)]="resource.username" >
             </td>
           </tr>
           <tr>
-            <th>{{ "password" }}</th>
+            <th>{{ "password" | trans }} *</th>
             <td>
               <input type="password" class="app-form" [(ngModel)]="resource.password" >
             </td>
           </tr>
           <tr>
-            <th>{{ "level" }}</th>
+            <th>{{ "email" | trans }}</th>
+            <td>
+              <input type="email" class="app-form" [(ngModel)]="resource.email" >
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "level" | trans }} *</th>
             <td>
               <select class="app-form" [(ngModel)]="resource.level_id">
                 <option *ngFor="let level of levels" value="{{ level.id }}" >{{ level.name }}</option>
@@ -64,7 +68,7 @@
             </td>
           </tr>
           <tr>
-            <th>{{ "department" }}</th>
+            <th>{{ "department" | trans }} *</th>
             <td>
               <select class="app-form" [(ngModel)]="resource.department_id">
                 <ng-container *ngFor="let depart of departments">
@@ -74,15 +78,15 @@
             </td>
           </tr>
           <tr>
-            <th>{{ "type" }}</th>
+            <th>{{ "type" | trans }}</th>
             <td>
               <select class="app-form" [(ngModel)]="resource.type">
-                <option *ngFor="let type of types" value="{{ type }}" >{{ type }}</option>
+                <option *ngFor="let type of types" value="{{ type }}" >{{ type | trans }}</option>
               </select>
             </td>
           </tr>
           <tr>
-            <th>{{ "active" }}</th>
+            <th>{{ "active" | trans }}</th>
             <td>
               <mat-slide-toggle [(ngModel)]="resource.active" [checked]="resource.active">
               </mat-slide-toggle>

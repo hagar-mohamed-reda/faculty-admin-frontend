@@ -40,4 +40,6 @@ import { GlobalSettingComponent } from './components/global-setting/global-setti
   ],
   exports: [SettingsComponent],
 })
+
+
 export class SettingsModule {}

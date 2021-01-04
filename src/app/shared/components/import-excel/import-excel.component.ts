@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Helper } from '../../helper';
 import { Message } from '../../message';
 import { ExcelService } from '../../services/excel.service';
 
@@ -90,7 +91,7 @@ export class ImportExcelComponent implements OnInit {
    */
   uploadFile() {
     if (!this.resource.file)
-      return Message.error("upload excel file");
+      return Message.error(Helper.trans("upload excel file"));
 
     let data = new FormData();
     this.isSubmitted = true;
