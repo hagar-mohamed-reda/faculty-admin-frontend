@@ -122,7 +122,7 @@
               <tbody>
                 <ng-container *ngFor="let item of department.data index as i">
                   <tr  >
-                    <td>{{ i + 1 }}</td>
+                    <td>{{ item.id }}</td>
                     <td>
                       <input type="text" class="form-control input-sm" [(ngModel)]="item.name" >
                     </td>

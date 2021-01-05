@@ -12,7 +12,7 @@ export class SpecialComponent extends SettingTemplate implements OnInit {
 
   constructor(public settingService: SettingService) {
     super(settingService);
-    this.baseUrl = "special";
+    this.baseUrl = "specializations";
     this.requiredFields = ['name'];
     this.get();
   }

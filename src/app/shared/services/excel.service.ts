@@ -18,4 +18,12 @@ export class ExcelService {
   public upload(url, data: FormData) {
     return this.http.post(url + '?api_token=' + Auth.getApiToken(), data);
   }
+
+  /**
+   * store new service
+   */
+  public download(url, data: FormData) {
+    return this.http.get(url + '?api_token=' + Auth.getApiToken() + "&"+this.$.param(data));
+  }
+
 }

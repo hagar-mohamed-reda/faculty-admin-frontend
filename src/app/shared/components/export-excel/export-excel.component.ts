@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HashTable } from 'angular-hashtable';
+import { environment } from 'src/environments/environment';
+import { Auth } from '../../auth';
 import { Helper } from '../../helper';
 import { Message } from '../../message';
 import { ExcelService } from '../../services/excel.service';
@@ -129,15 +131,13 @@ export class ExportExcelComponent implements OnInit {
     if (this.selectFields.getKeys().length <= 0)
       return Message.error(Helper.trans('select fields'));
 
-    this.excelService.upload(this.apiUrl, this.data).subscribe((r: any) => {
-      if (r.status == 1) {
-        Message.success(r.message);
-        this.reset();
-      }else
-        Message.error(r.message);
+    let data: any = {
+      fields: this.selectFields.getKeys()
+    };
 
-      this.isSubmitted = false;
-    });
+    let url = environment.apiUrl + "/" + this.apiUrl + "?" + "api_token=" + Auth.getApiToken() + "&" + this.$.param(data);
+    window.open(url);
+
   }
 
   ngOnInit() {

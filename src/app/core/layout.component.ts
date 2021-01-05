@@ -11,6 +11,7 @@ import { Request } from '../shared/request';
 })
 export class LayoutComponent implements  OnInit{
 
+  public document: any = document;
   public height = 0;
   public width = 0;
   public style = "";
@@ -21,7 +22,7 @@ export class LayoutComponent implements  OnInit{
   private translationService: TranslationService) {
     Translation.TRANSLATION_DATA = Cache.get(Translation.TRANSLATION_CACHE_KEY);
     this.height = window.innerHeight - 50;
-    this.width = window.innerWidth - 100;
+    this.width = window.innerWidth - 115;
   }
 
   watchUser() {
@@ -46,6 +47,10 @@ export class LayoutComponent implements  OnInit{
 
     this.$('.app-content').css("width", this.width+"px");
     this.$('.app-content').css("height", this.height+"px");
+    let self = this;
+    //setTimeout(()=>{
+      //self.document.nicescroll('.app-content', { height: this.height });
+    //}, 500);
   }
 
   init() {

@@ -252,3 +252,17 @@ table, tr {
 .swal2-actions {
   margin-top: 30px!important;
 }
+
+
+
+.theme-text-dark {
+  color: #303146;
+}
+
+.theme-text-semi-dark {
+  color: #464775;
+}
+
+.theme-text-light {
+  color: #6264A6;
+}

@@ -108,5 +108,20 @@ export class Helper {
     }
     return data;
   }
+
+  /**
+   * pre pagination
+   *
+   */
+  public static prepagination(resources) {
+    if (!resources.data)
+      return;
+    resources.prev_page = resources.prev_page_url? resources.prev_page_url.replace(resources.path+'?page=', '') : null;
+    resources.next_page = resources.next_page_url? resources.next_page_url.replace(resources.path+'?page=', '') : null;
+    resources.pages = Math.ceil(resources.total / resources.per_page);
+    resources.pages_arr = [];
+    for(let i = 0; i < resources.pages; i ++)
+      resources.pages_arr.push(i+1);
+  }
 }
 

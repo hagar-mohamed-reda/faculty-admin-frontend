@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Auth } from 'src/app/shared/auth';
 import { Helper } from 'src/app/shared/helper';
 import { Message } from 'src/app/shared/message';
 import { GlobalService } from 'src/app/shared/services/global.service';
@@ -18,10 +19,28 @@ export class StudentIndexComponent implements OnInit {
   public $: any = $;
 
   /**
+   * init document
+   *
+   */
+  public document: any = document;
+
+  /**
    * Array of items of breadcrumb
    *
    */
   public breadcrumbData = [];
+
+  /**
+   * filter inputs
+   *
+   */
+  public response: any = {};
+
+  /**
+   * filter inputs
+   *
+   */
+  public students: any = [];
 
   /**
    * filter inputs
@@ -60,7 +79,6 @@ export class StudentIndexComponent implements OnInit {
   public fields: any = [
     'name',
     'username',
-    'password',
     'level_id',
     'department_id',
     'division_id',
@@ -76,12 +94,45 @@ export class StudentIndexComponent implements OnInit {
   ];
 
   /**
+   * url of import from excel api
+   *
+   */
+  public importApi = "students/import";
+
+  /**
    * url of excel template file
    *
    */
-  public importTemplateUrl = environment.publicUrl + "/uploads/excel/add_student_template.xlsx";
+  public importTemplateUrl = environment.apiUrl + "/students/import-file?api_token="+Auth.getApiToken();
 
-  constructor(private globalService: GlobalService) { }
+  /**
+   * url of export api
+   *
+   */
+  public exportApi = "students/export";
+
+  /**
+   * url of export api
+   *
+   */
+  public action: any;
+
+  /**
+   * url of export api
+   *
+   */
+  public reload = false;
+
+  /**
+   * url of export api
+   *
+   */
+  public archiveLoad = false;
+
+
+  constructor(private globalService: GlobalService) {
+    this.action = () => { this.get(); };
+  }
 
   /**
    * init items of breadcrumb
@@ -91,6 +142,36 @@ export class StudentIndexComponent implements OnInit {
     this.breadcrumbData = [
       {name: 'student page', url: '#'}
     ];
+  }
+
+  /**
+   * load all student data
+   *
+   */
+  get(data=null) {
+    let params = (data)? data: this.filter;
+    this.reload = true;
+    this.archiveLoad = false;
+    this.globalService.get("students", params).subscribe((res) => {
+      this.response = res;
+      this.students = this.response.data;
+      this.reload = false;
+      //
+      this.prePagniation();
+    });
+  }
+
+  /**
+   * get all deleted students
+   *
+   */
+  getArchive() {
+    this.reload = true;
+    this.archiveLoad = true;
+    this.globalService.get("students/archive").subscribe((res) => {
+      this.students = res;
+      this.reload = false;
+    });
   }
 
   /**
@@ -130,10 +211,35 @@ export class StudentIndexComponent implements OnInit {
    * show export students from excel file
    *
    */
-  archive() {
+  archive(item) {
     let _this = this;
     Message.confirm(Helper.trans("are you sure to arhive this item"), ()=>{
-      // archive code
+      _this.globalService.destroy("students/delete", item.id).subscribe((r: any)=>{
+        if (r.status == 1) {
+          Message.success(r.message);
+          this.get();
+        }
+        else
+          Message.error(r.message);
+      });
+    });
+  }
+
+  /**
+   * restore item from archive
+   *
+   */
+  restore(item) {
+    let _this = this;
+    Message.confirm(Helper.trans("are to restore item from archive"), ()=>{
+      _this.globalService.destroy("students/restore", item.id).subscribe((r: any)=>{
+        if (r.status == 1) {
+          Message.success(r.message);
+          _this.getArchive();
+        }
+        else
+          Message.error(r.message);
+      });
     });
   }
 
@@ -145,6 +251,8 @@ export class StudentIndexComponent implements OnInit {
    * load faculties
    */
   loadSettings() {
+    this.get();
+    //
     this.globalService.get("levels").subscribe((r) => {
       this.levels = r;
     });
@@ -154,9 +262,27 @@ export class StudentIndexComponent implements OnInit {
     this.types = ['normal', 'graduation'];
   }
 
+  /**
+   * pre panination
+   */
+  prePagniation() {
+    Helper.prepagination(this.response);
+    console.log(this.response);
+  }
+
+  setDataContainerStyle() {
+    let height = (window.innerHeight - 250) + "px";
+    this.document.nicescroll('.data-container', {height: height});
+  }
+
   ngOnInit() {
     this.initBreadcrumbData();
     this.loadSettings();
+    let _this = this;
+    //
+    setTimeout(()=>{
+      _this.setDataContainerStyle();
+    }, 500);
   }
 
 }

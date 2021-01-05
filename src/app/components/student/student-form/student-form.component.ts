@@ -13,10 +13,12 @@ export class StudentFormComponent implements OnInit {
   @Input() title: any;
   @Input() editable: boolean = false;
   @Input() resource: any = {};
+  @Input() action: any;
 
   levels: any = [];
   departments: any = [];
   types: any = [];
+  isSubmitted = false;
   $: any = $;
 
   /**
@@ -38,7 +40,7 @@ export class StudentFormComponent implements OnInit {
    */
   reset() {
     this.resource = {
-      "active": true,
+      "active": 1,
       "type": "normal",
       url: "/assets/img/upload.jpg"
     };
@@ -66,13 +68,18 @@ export class StudentFormComponent implements OnInit {
     if (!Helper.validator(this.resource, this.required))
       return Message.error("fill all required data");
 
+    this.isSubmitted = true;
     this.globalService.store("students/store", Helper.toFormData(this.resource)).subscribe((res: any)=>{
       if (res.status == 1) {
         Message.success(res.message);
         this.reset();
+        if (this.action)
+          this.action();
       }
       else
         Message.error(res.message);
+
+      this.isSubmitted = false;
     });
   }
 
@@ -84,13 +91,17 @@ export class StudentFormComponent implements OnInit {
     if (!Helper.validator(this.resource, this.required))
       return Message.error("fill all required data");
 
-    this.globalService.update("students/update", Helper.toFormData(this.resource)).subscribe((res: any)=>{
+    this.isSubmitted = true;
+    this.globalService.update("students/update/"+this.resource.id, Helper.toFormData(this.resource)).subscribe((res: any)=>{
       if (res.status == 1) {
         Message.success(res.message);
-        this.reset();
+        if (this.action)
+          this.action();
       }
       else
         Message.error(res.message);
+
+      this.isSubmitted = false;
     });
   }
 

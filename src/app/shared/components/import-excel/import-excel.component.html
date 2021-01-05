@@ -40,7 +40,9 @@
             class="w3-large btn material-shadow w3-round circle" >
               <span class="fa fa-upload" ></span> {{ "upload your file" | trans }}
             </button>
-            <input type="file" (change)="changeFile($event)"  id="importExcelFileInput" class="hidden" >
+            <br>
+            <b>{{ resource.file? resource.file.name : '' }}</b>
+            <input type="file" (change)="changeFile($event)"  id="importExcelFileInput" class="hidden" accept=".xlsx, .xls, .csv" >
           </div>
           <br>
           <br>

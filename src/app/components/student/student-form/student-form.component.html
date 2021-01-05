@@ -95,7 +95,10 @@
         </table>
       </div>
       <div class="modal-footer w3-center">
-        <button mat-raised-button class="w3-indigo" >{{ "submit" | trans }}</button>
+        <button mat-raised-button class="w3-indigo" [disabled]="isSubmitted" (click)="send()" >
+          <span *ngIf="!isSubmitted" >{{ "submit" | trans }}</span>
+          <span *ngIf="isSubmitted" class="fa fa-spin fa-spinner" ></span>
+        </button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

@@ -23,6 +23,12 @@ export class ImportExcelComponent implements OnInit {
   @Input() apiUrl = "";
 
   /**
+   * url of api to import excel file
+   *
+   */
+  @Input() action: any;
+
+  /**
    * url of template of excel file
    *
    */
@@ -82,7 +88,10 @@ export class ImportExcelComponent implements OnInit {
    *
    */
   changeFile(event) {
-    this.resource.file = event.files[0];
+    this.resource.file = event.target.files[0];
+    //
+    console.log(event);
+    Helper.setFile(event, 'file', this.resource);
   }
 
   /**
@@ -100,6 +109,8 @@ export class ImportExcelComponent implements OnInit {
       if (r.status == 1) {
         Message.success(r.message);
         this.reset();
+        if (this.action)
+          this.action();
       }else
         Message.error(r.message);
 

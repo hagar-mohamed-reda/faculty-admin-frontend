@@ -22,6 +22,7 @@ import { PermissionDirective } from './directives/permission.directive';
 import { ImportExcelComponent } from './components/import-excel/import-excel.component';
 import { MatButtonModule, MatCheckboxModule, MatPaginatorModule, MatSliderModule, MatSlideToggleModule, MatSortModule, MatTableModule } from '@angular/material';
 import { ExportExcelComponent } from './components/export-excel/export-excel.component';
+import { AppAvatarComponent } from './components/app-avatar/app-avatar.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ExportExcelComponent } from './components/export-excel/export-excel.com
     TransPipe,
     PermissionDirective,
     ImportExcelComponent,
-    ExportExcelComponent
+    ExportExcelComponent,
+    AppAvatarComponent
   ],
   imports: [
     CommonModule,
@@ -77,7 +79,8 @@ import { ExportExcelComponent } from './components/export-excel/export-excel.com
     TransPipe,
     PermissionDirective,
     ImportExcelComponent,
-    ExportExcelComponent
+    ExportExcelComponent,
+    AppAvatarComponent
   ]
 })
 export class SharedModule { }
