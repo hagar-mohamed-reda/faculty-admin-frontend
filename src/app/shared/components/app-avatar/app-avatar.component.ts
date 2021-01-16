@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class AppAvatarComponent implements OnInit {
 
   @Input() icon: any;
+  @Input() text: any;
   @Input() url: any;
   @Input() width: any;
   @Input() height: any;
@@ -23,7 +24,7 @@ export class AppAvatarComponent implements OnInit {
     if (!this.height)
       this.height = "100px";
 
-    if (!this.url && !this.icon)
+    if (!this.url && !this.icon && !this.text)
       this.icon = "fa fa-user";
 
   }

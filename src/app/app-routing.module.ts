@@ -50,10 +50,6 @@ const routes: Routes = [
         path: 'users',
         component: UserIndexComponent
       },
-      {
-        path: 'settings',
-        loadChildren: './settings/settings.module#SettingModule'
-      },
      /* {
         path: 'dashboard',
         loadChildren: './dashboard/dashboard.module#DashboardModule'

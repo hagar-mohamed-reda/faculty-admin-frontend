@@ -39,7 +39,6 @@ import { GlobalSettingComponent } from './components/global-setting/global-setti
     MatSlideToggleModule
   ],
   exports: [SettingsComponent],
-})
-
+}) 
 
 export class SettingsModule {}

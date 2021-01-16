@@ -35,6 +35,12 @@ export class ImportExcelComponent implements OnInit {
   @Input() templateUrl = "";
 
   /**
+   * url of template of excel file
+   *
+   */
+  @Input() data = {};
+
+  /**
    * init jquery
    *
    */
@@ -102,9 +108,11 @@ export class ImportExcelComponent implements OnInit {
     if (!this.resource.file)
       return Message.error(Helper.trans("upload excel file"));
 
-    let data = new FormData();
+    let data = Helper.toFormData(this.data);
     this.isSubmitted = true;
     data.append("file", this.resource.file);
+
+
     this.excelService.upload(this.apiUrl, data).subscribe((r: any) => {
       if (r.status == 1) {
         Message.success(r.message);

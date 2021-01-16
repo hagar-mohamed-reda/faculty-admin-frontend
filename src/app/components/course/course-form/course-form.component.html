@@ -1,4 +1,4 @@
-<div class="modal fade" id="{{ editable? 'studentEditModal' : 'studentAddModal' }}" tabindex="-1" role="dialog">
+<div class="modal fade" id="{{ editable? 'courseEditModal' : 'courseAddModal' }}" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content light-gray">
       <div class="modal-header w3-border-0" >
@@ -7,32 +7,42 @@
       </div>
       <div class="modal-body">
         <table class="table" >
-          <tr>
-            <td  colspan="2">
-              <img [src]="resource.url" alt="">
-              <input type="file" class="app-form" (change)="loadFile()" [(ngModel)]="resource.image" >
+          <tr class="" >
+            <td  colspan="2" class="text-center w3-padding" >
+              <img [src]="resource.photo_url" class="w3-block" *ngIf="resource.photo_url" >
+              <button mat-raised-button style="border-radius: 5em;" (click)="$(editable? '.image-input' : '.edit-image-input').click()" >
+                <i class="fa fa-cloud-upload " ></i> {{ "upload image" | trans }}
+              </button>
+              <br>
+              <input type="file" class="app-form hidden {{ editable? 'image-input' : 'edit-image-input' }}" (change)="loadFile($event, 'photo')" [(ngModel)]="resource.photo" accept="image/*" >
             </td>
           </tr>
           <tr>
-            <th>{{ "name" }}</th>
+            <th>{{ "name" | trans }} *</th>
             <td>
               <input type="text" class="app-form" [(ngModel)]="resource.name" >
             </td>
           </tr>
           <tr>
-            <th>{{ "code" }}</th>
+            <th>{{ "code" | trans }} *</th>
             <td>
               <input type="text" class="app-form" [(ngModel)]="resource.code" >
             </td>
           </tr>
           <tr>
-            <th>{{ "large_degree" }}</th>
+            <th>{{ "credit_hour" | trans }} *</th>
             <td>
-              <input type="number" class="app-form" [(ngModel)]="resource.large_degree" >
+              <input type="number" class="app-form" [(ngModel)]="resource.credit_hour" >
             </td>
           </tr>
           <tr>
-            <th>{{ "level" }}</th>
+            <th>{{ "final_degree" | trans }} *</th>
+            <td>
+              <input type="number" class="app-form" [(ngModel)]="resource.final_degree" >
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "level" | trans }} *</th>
             <td>
               <select class="app-form" [(ngModel)]="resource.level_id">
                 <option *ngFor="let level of levels" value="{{ level.id }}" >{{ level.name }}</option>
@@ -40,22 +50,40 @@
             </td>
           </tr>
           <tr>
-            <th>{{ "description" }}</th>
+            <th>{{ "description" | trans }}</th>
             <td>
-              <textarea class="app-form" [(ngModel)]="resource.phone" ></textarea>
+              <textarea class="app-form" [(ngModel)]="resource.description" ></textarea>
             </td>
           </tr>
           <tr>
-            <th>{{ "active" }}</th>
+            <th>{{ "active" | trans }}</th>
             <td>
               <mat-slide-toggle [(ngModel)]="resource.active" [checked]="resource.active">
               </mat-slide-toggle>
             </td>
           </tr>
+          <tr>
+            <th>{{ "divisions" | trans }}</th>
+            <td>
+              <div class="w3-row">
+                <div class="col-lg-4 col-md-4 col-sm-4" *ngFor="let item of divisions" >
+                  <mat-slide-toggle
+                    [(ngModel)]="item.selected"
+                    [checked]="item.selected">
+                  </mat-slide-toggle>
+                   {{ item.name }}
+                </div>
+              </div>
+            </td>
+          </tr>
         </table>
+        <br>
       </div>
       <div class="modal-footer w3-center">
-        <button mat-raised-button class="w3-indigo" >{{ "submit" | trans }}</button>
+        <button mat-raised-button class="w3-indigo" [disabled]="isSubmitted" (click)="send()" >
+          <span *ngIf="!isSubmitted" >{{ "submit" | trans }}</span>
+          <span *ngIf="isSubmitted" class="fa fa-spin fa-spinner" ></span>
+        </button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

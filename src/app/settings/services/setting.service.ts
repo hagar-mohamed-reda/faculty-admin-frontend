@@ -8,6 +8,7 @@ import { Auth } from 'src/app/shared/auth';
 export class SettingService {
 
   public baseUrl = "";
+  $: any = $;
 
   constructor(private http: HttpClient) {
     this.get();
@@ -18,8 +19,8 @@ export class SettingService {
    * get services from api
    *
    */
-  public get() {
-    return this.http.get(this.baseUrl + '?api_token=' + Auth.getApiToken());
+  public get(data={}) {
+    return this.http.get(this.baseUrl + '?api_token=' + Auth.getApiToken()+"&"+this.$.param(data));
   }
 
   /**

@@ -8,7 +8,8 @@ export class SettingTemplate {
   isSubmitted = false;
   data: any = [];
   requiredFields = [];
-  baseUrl = null
+  baseUrl = null;
+  $: any = $;
 
   constructor(public settingService: SettingService) {
     this.settingService.baseUrl = this.baseUrl;
@@ -18,9 +19,9 @@ export class SettingTemplate {
 
   }
 
-  get() {
+  get(data={}) {
     this.settingService.baseUrl = this.baseUrl;
-    this.settingService.get().subscribe((res) => {
+    this.settingService.get(data).subscribe((res) => {
       this.data = res;
     });
   }

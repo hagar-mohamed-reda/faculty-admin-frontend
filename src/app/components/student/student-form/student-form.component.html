@@ -7,14 +7,14 @@
       </div>
       <div class="modal-body">
         <table class="table" >
-          <tr class="hidden" >
-            <td  colspan="2">
-              <img
-              [src]="resource.url" alt=""
-              (click)="$('.image-fileinput').click()"
-              class="w3-round" height="100px" style="cursor: pointer;" >
-              <input type="file" class="app-form hidden image-fileinput" (change)="loadFile($event)" [(ngModel)]="resource.image" >
+          <tr class="" >
+            <td  colspan="2" class="text-center w3-padding" >
+              <img [src]="resource.photo_url" class="w3-block" *ngIf="resource.photo_url" >
+              <button mat-raised-button style="border-radius: 5em;" (click)="$(editable? '.image-input' : '.edit-image-input').click()" >
+                <i class="fa fa-cloud-upload " ></i> {{ "upload image" | trans }}
+              </button>
               <br>
+              <input type="file" class="app-form hidden {{ editable? 'image-input' : 'edit-image-input' }}" (change)="loadFile($event, 'photo')" [(ngModel)]="resource.photo" accept="image/*" >
             </td>
           </tr>
           <tr>

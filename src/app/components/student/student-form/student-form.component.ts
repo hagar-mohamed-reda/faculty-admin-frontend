@@ -108,8 +108,8 @@ export class StudentFormComponent implements OnInit {
   /**
    * load file object in resource
    */
-  loadFile(event) {
-      Helper.loadImage(event, 'photo', this.resource);
+  loadFile(event, key) {
+      Helper.loadImage(event, key, this.resource);
   }
 
   /**

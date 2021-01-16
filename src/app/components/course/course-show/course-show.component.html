@@ -7,24 +7,24 @@
       <!-- Profile Image -->
       <div class="box box-primary">
         <div class="box-body box-profile">
-          <img class="profile-user-img img-responsive img-circle" src="/assets/img/application.gif" alt="User profile picture">
+          <img class="profile-user-img img-responsive img-circle" [src]="resource.photo ? resource.photo_url : '/assets/img/application.gif'" alt="User profile picture">
 
-          <h3 class="profile-username text-center">Course name</h3>
+          <h3 class="profile-username text-center">{{ resource.name }}</h3>
 
 
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
-              <b>{{ "student register" | trans }}</b> <a class="pull-left">1,322</a>
+              <b>{{ "student register" | trans }}</b> <a class="pull-left">{{ resource.register_student_count | number }}</a>
             </li>
             <li class="list-group-item">
-              <b>{{ "doctor register" | trans }}</b> <a class="pull-left">543</a>
+              <b>{{ "doctor register" | trans }}</b> <a class="pull-left">{{ resource.register_doctor_count | number }}</a>
             </li>
             <li class="list-group-item">
-              <b>{{ "departments" | trans }}</b> <a class="pull-left">4</a>
+              <b>{{ "departments" | trans }}</b> <a class="pull-left">{{ resource.department_count | number }}</a>
             </li>
           </ul>
 
-          <button mat-raised-button class="btn w3-teal app-button btn-block" (click)="registerStudentFromExcel()" >
+          <button mat-raised-button class="btn w3-teal app-button btn-block" (click)="registerStudentFromExcel(1)" >
             <b class="w3-right" >{{"register student from excel" | trans}}</b>
             <b class="w3-left fa fa-file-excel-o" style="padding-top: 9px" ></b>
           </button>
@@ -66,7 +66,7 @@
 
           <strong><i class="fa fa-level-up margin-r-5"></i> {{"level" | trans}}</strong>
 
-          <p class="text-muted">{{ resource.level }}</p>
+          <p class="text-muted">{{ resource.level? resource.level.name : '' }}</p>
 
           <hr>
 
@@ -99,7 +99,7 @@
               <thead>
                 <th>#</th>
                 <th>{{ "name" | trans }}</th>
-                <th>{{ "number" | trans }}</th>
+                <th class="hidden" >{{ "number" | trans }}</th>
                 <th></th>
               </thead>
               <tbody>
@@ -109,14 +109,14 @@
                     <td>
                       <input type="text"  class="app-form input-sm" [(ngModel)]="item.name" >
                     </td>
-                    <td>
+                    <td class="hidden" >
                       <input type="text"  class="app-form input-sm" [(ngModel)]="item.number" >
                     </td>
                     <td>
                     <div style="width: 90px" >
                       <button class="btn btn-success"
                       [disabled]="group.isSubmitted"
-                      (click)="group.send(item, i)" >
+                      (click)="group.send(getItem(item), i)" >
                       <i *ngIf="!group.isSubmitted" class="fa fa-check" ></i>
                       <i *ngIf="group.isSubmitted" class="fa fa-spin fa-spinner" ></i>
                     </button>
@@ -151,12 +151,12 @@
                  <th>{{ "department" | trans }}</th>
                </thead>
                <tbody>
-                 <tr>
-                   <td>1</td>
-                   <td>name</td>
-                   <td>3243342</td>
-                   <td>first</td>
-                   <td>IT</td>
+                <tr *ngFor="let item of resource.students index as i" >
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.code }}</td>
+                  <td>{{ item.level? item.level.name : '' }}</td>
+                  <td>{{ item.department? item.department.name : '' }}</td>
                  </tr>
                </tbody>
              </table>
@@ -173,12 +173,12 @@
                 <th>{{ "department" | trans }}</th>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>name</td>
-                  <td>3243342</td>
-                  <td>AI</td>
-                  <td>IT</td>
+                <tr *ngFor="let item of resource.doctors index as i" >
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.phone }}</td>
+                  <td>{{ item.special? item.special.name : '' }}</td>
+                  <td>{{ item.department? item.department.name : '' }}</td>
                 </tr>
               </tbody>
             </table>
@@ -196,9 +196,40 @@
 
 
 
-<app-import-excel [title]="'register student from excel file'" ></app-import-excel>
+<app-import-excel [title]="'register student from excel file'" [templateUrl]="templateUrl" [data]="importData" ></app-import-excel>
 
 
 <app-course-register-doctor></app-course-register-doctor>
 
 <app-course-register-student></app-course-register-student>
+
+<!--- choice category form -->
+<div class="modal fade" tabindex="-1" role="dialog" id="choiceCategoryModal" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content light-gray">
+      <div class="modal-header w3-border-0">
+        <button type="button" class="close w3-text-red" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">{{ "choice course category do you want to register in it" | trans }}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="w3-row">
+          <div class="col-lg-2" *ngFor="let category of group.data" style="padding: 4px" >
+            <div class="w3-round material-shadow w3-padding theme-light w3-text-white text-center" >
+              <b>{{ category.name }}</b>
+              <br>
+              <mat-slide-toggle
+              #selectedCategory
+              [(ngModel)]="category.selected"
+              (change)="selectCategory(category.id, selectedCategory.checked)"  >
+              </mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" style="margin: 3px" mat-raised-button data-dismiss="modal">{{ "close" | trans }}</button>
+        <button type="button" mat-raised-button class="w3-indigo" style="margin: 3px" (click)="registerStudentFromExcel(2)" >{{ "next" | trans }}</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

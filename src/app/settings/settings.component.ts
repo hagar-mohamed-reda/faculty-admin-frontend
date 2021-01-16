@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { Auth } from '../shared/auth';
 
 @Component({
@@ -9,10 +9,11 @@ import { Auth } from '../shared/auth';
 export class SettingsComponent implements OnInit {
 
   public auth: any = Auth;
-  constructor() { }
 
+
+  constructor() { }
+  
   ngOnInit() {
   }
 
-
-}
+}  

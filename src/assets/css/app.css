@@ -227,17 +227,17 @@ table, tr {
 
 
 .theme-dark {
-  background-color: #303146;
+  background-color: #303146!important;
   color: white;
 }
 
 .theme-semi-dark {
-  background-color: #464775;
+  background-color: #464775!important;
   color: white;
 }
 
 .theme-light {
-  background-color: #6264A6;
+  background-color: #6264A6!important;
   color: black;
 }
 
@@ -256,13 +256,13 @@ table, tr {
 
 
 .theme-text-dark {
-  color: #303146;
+  color: #303146!important;
 }
 
 .theme-text-semi-dark {
-  color: #464775;
+  color: #464775!important;
 }
 
 .theme-text-light {
-  color: #6264A6;
+  color: #6264A6!important;
 }
