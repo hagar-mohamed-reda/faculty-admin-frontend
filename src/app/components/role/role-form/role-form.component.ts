@@ -5,52 +5,42 @@ import { Message } from 'src/app/shared/message';
 import { GlobalService } from 'src/app/shared/services/global.service';
 
 @Component({
-  selector: 'app-course-form',
-  templateUrl: './course-form.component.html',
-  styleUrls: ['./course-form.component.scss']
+  selector: 'app-role-form',
+  templateUrl: './role-form.component.html',
+  styleUrls: ['./role-form.component.scss']
 })
-export class CourseFormComponent implements OnInit, OnChanges {
+export class RoleFormComponent implements OnInit {
 
   @Input() title: any;
   @Input() editable: boolean = false;
   @Input() resource: any = {};
   @Input() action: any;
 
-  levels: any = [];
-  departments: any = [];
-  divisions: any = [];
+  roles: any = [];
   types: any = [];
   isSubmitted = false;
-  selectedDivisions = new HashTable<any, any>();
   $: any = $;
 
   /**
-   * required fields of course
+   * required fields of role
    */
   required = [
-    'name',
-    'level_id',
-    'code',
-    'credit_hour',
-    'final_degree'
+    'name'
   ];
 
   constructor(private globalService: GlobalService) {
     //
     if (!this.editable)
       this.reset();
+      //
   }
 
   /**
-   * reset course add form
+   * reset role add form
    *
    */
   reset() {
-    this.resource = {
-      "active": 1,
-      "type": "normal",
-      url: "/assets/img/upload.jpg"
-    };
+    this.resource = {};
   }
 
 
@@ -61,7 +51,6 @@ export class CourseFormComponent implements OnInit, OnChanges {
    *
    */
   send() {
-    this.resource.divisions = JSON.stringify(this.getSelectedDivisions());
     //
     if (this.editable) {
       this.update();
@@ -71,7 +60,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
   }
 
   /**
-   * store new course
+   * store new role
    *
    */
   store() {
@@ -79,7 +68,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
       return Message.error("fill all required data");
 
     this.isSubmitted = true;
-    this.globalService.store("courses/store", Helper.toFormData(this.resource)).subscribe((res: any)=>{
+    this.globalService.store("roles/store", Helper.toFormData(this.resource)).subscribe((res: any)=>{
       if (res.status == 1) {
         Message.success(res.message);
         this.reset();
@@ -94,7 +83,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
   }
 
   /**
-   * update input course
+   * update input role
    *
    */
   update() {
@@ -102,7 +91,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
       return Message.error("fill all required data");
 
     this.isSubmitted = true;
-    this.globalService.update("courses/update/"+this.resource.id, Helper.toFormData(this.resource)).subscribe((res: any)=>{
+    this.globalService.update("roles/update/"+this.resource.id, Helper.toFormData(this.resource)).subscribe((res: any)=>{
       if (res.status == 1) {
         Message.success(res.message);
         if (this.action)
@@ -123,20 +112,6 @@ export class CourseFormComponent implements OnInit, OnChanges {
   }
 
   /**
-   * get selected divisions
-   *
-   */
-  getSelectedDivisions() {
-    let arr = [];
-    this.divisions.forEach(element => {
-      if (element.selected) {
-        arr.push(element.id);
-      }
-    });
-    return arr;
-  }
-
-  /**
    * load all filter data
    * load levels
    * load types
@@ -144,24 +119,12 @@ export class CourseFormComponent implements OnInit, OnChanges {
    * load faculties
    */
   loadSettings() {
-    this.globalService.get("levels").subscribe((r) => {
-      this.levels = r;
-    });
-    this.globalService.get("divisions").subscribe((r) => {
-      this.divisions = r;
-    });
-    this.types = ['normal', 'graduation'];
+    this.types = ['admin', 'super-admin'];
   }
 
   ngOnInit() {
     this.loadSettings();
   }
 
-  ngOnChanges() {
-    this.selectedDivisions = new HashTable();
-    this.resource.departments.forEach(element => {
-      this.selectedDivisions.put(element.id, element.id);
-    });
-  }
 
 }

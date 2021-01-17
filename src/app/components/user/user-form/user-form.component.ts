@@ -1,4 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { HashTable } from 'angular-hashtable';
+import { Helper } from 'src/app/shared/helper';
+import { Message } from 'src/app/shared/message';
+import { GlobalService } from 'src/app/shared/services/global.service';
 
 @Component({
   selector: 'app-user-form',
@@ -10,20 +14,125 @@ export class UserFormComponent implements OnInit {
   @Input() title: any;
   @Input() editable: boolean = false;
   @Input() resource: any = {};
+  @Input() action: any;
 
-  facultys: any = [];
-  departments: any = [];
+  roles: any = [];
   types: any = [];
+  isSubmitted = false;
+  $: any = $;
 
-  constructor() {
-    this.types = ['super-admin', 'admin', 'student', 'doctor'];
+  /**
+   * required fields of user
+   */
+  required = [
+    'name',
+    'username',
+    'password',
+    'type'
+  ];
+
+  constructor(private globalService: GlobalService) {
+    //
+    if (!this.editable)
+      this.reset();
+      //
   }
 
-  loadFile() {
+  /**
+   * reset user add form
+   *
+   */
+  reset() {
+    this.resource = {
+      "active": 1,
+      url: "/assets/img/upload.jpg"
+    };
+  }
 
+
+  /**
+   * send data to the server
+   * check if edit mode call update
+   * else call store
+   *
+   */
+  send() {
+    //
+    if (this.editable) {
+      this.update();
+    } else {
+      this.store();
+    }
+  }
+
+  /**
+   * store new user
+   *
+   */
+  store() {
+    if (!Helper.validator(this.resource, this.required))
+      return Message.error("fill all required data");
+
+    this.isSubmitted = true;
+    this.globalService.store("users/store", Helper.toFormData(this.resource)).subscribe((res: any)=>{
+      if (res.status == 1) {
+        Message.success(res.message);
+        this.reset();
+        if (this.action)
+          this.action();
+      }
+      else
+        Message.error(res.message);
+
+      this.isSubmitted = false;
+    });
+  }
+
+  /**
+   * update input user
+   *
+   */
+  update() {
+    if (!Helper.validator(this.resource, this.required))
+      return Message.error("fill all required data");
+
+    this.isSubmitted = true;
+    this.globalService.update("users/update/"+this.resource.id, Helper.toFormData(this.resource)).subscribe((res: any)=>{
+      if (res.status == 1) {
+        Message.success(res.message);
+        if (this.action)
+          this.action();
+      }
+      else
+        Message.error(res.message);
+
+      this.isSubmitted = false;
+    });
+  }
+
+  /**
+   * load file object in resource
+   */
+  loadFile(event, key) {
+    Helper.loadImage(event, key, this.resource);
+  }
+
+  /**
+   * load all filter data
+   * load levels
+   * load types
+   * load departments
+   * load faculties
+   */
+  loadSettings() {
+    this.globalService.get("roles").subscribe((r: any) => {
+      this.roles = r.data;
+    });
+    this.types = ['admin', 'super-admin'];
   }
 
   ngOnInit() {
+    this.loadSettings();
   }
 
 

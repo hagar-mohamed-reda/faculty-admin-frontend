@@ -6,11 +6,11 @@ import { GlobalService } from 'src/app/shared/services/global.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-course-index',
-  templateUrl: './course-index.component.html',
-  styleUrls: ['./course-index.component.scss']
+  selector: 'app-role-index',
+  templateUrl: './role-index.component.html',
+  styleUrls: ['./role-index.component.scss']
 })
-export class CourseIndexComponent implements OnInit {
+export class RoleIndexComponent implements OnInit {
 
   /**
    * init jquery
@@ -40,7 +40,7 @@ export class CourseIndexComponent implements OnInit {
    * filter inputs
    *
    */
-  public courses: any = [];
+  public roles: any = [];
 
   /**
    * filter inputs
@@ -61,51 +61,30 @@ export class CourseIndexComponent implements OnInit {
   public levels: any = [];
 
   /**
-   * types of course
+   * types of role
    *
    */
   public types: any = [];
 
-  /**
-   * select item to edit it
-   *
-   */
-  public departments: any = [];
 
-  /**
-   * fields of course table
-   *
-   */
-  public fields: any = [
-    'name',
-    'level_id',
-    'faculty_id',
-    'code',
-    'credit_hour',
-    'description',
-    'final_degree',
-    'active',
-    'created_at',
-    'updated_at'
-  ];
 
   /**
    * url of import from excel api
    *
    */
-  public importApi = "courses/import";
+  public importApi = "roles/import";
 
   /**
    * url of excel template file
    *
    */
-  public importTemplateUrl = environment.apiUrl + "/course/import-file?api_token="+Auth.getApiToken();
+  public importTemplateUrl = environment.apiUrl + "/roles/import-file?api_token="+Auth.getApiToken();
 
   /**
    * url of export api
    *
    */
-  public exportApi = "course/export";
+  public exportApi = "roles/export";
 
   /**
    * url of export api
@@ -136,21 +115,21 @@ export class CourseIndexComponent implements OnInit {
    */
   initBreadcrumbData() {
     this.breadcrumbData = [
-      {name: 'course page', url: '#'}
+      {name: 'role page', url: '#'}
     ];
   }
 
   /**
-   * load all course data
+   * load all role data
    *
    */
   get(data=null) {
     let params = (data)? data: this.filter;
     this.reload = true;
     this.archiveLoad = false;
-    this.globalService.get("courses", params).subscribe((res) => {
+    this.globalService.get("roles", params).subscribe((res) => {
       this.response = res;
-      this.courses = this.response.data;
+      this.roles = this.response.data;
       this.reload = false;
       //
       this.prePagniation();
@@ -158,37 +137,37 @@ export class CourseIndexComponent implements OnInit {
   }
 
   /**
-   * get all deleted courses
+   * get all deleted roles
    *
    */
   getArchive() {
     this.reload = true;
     this.archiveLoad = true;
-    this.globalService.get("course/archive").subscribe((res) => {
-      this.courses = res;
+    this.globalService.get("roles/archive").subscribe((res) => {
+      this.roles = res;
       this.reload = false;
     });
   }
 
   /**
-   * show add course modal
+   * show add role modal
    *
    */
   create() {
-    this.$('#courseAddModal').modal('show');
+    this.$('#roleAddModal').modal('show');
   }
 
   /**
-   * show add course modal
+   * show add role modal
    *
    */
   edit(item) {
     this.resource = item;
-    this.$('#courseEditModal').modal('show');
+    this.$('#roleEditModal').modal('show');
   }
 
   /**
-   * show import courses from excel file
+   * show import roles from excel file
    *
    */
   import() {
@@ -196,7 +175,7 @@ export class CourseIndexComponent implements OnInit {
   }
 
   /**
-   * show export courses from excel file
+   * show export roles from excel file
    *
    */
   export() {
@@ -204,13 +183,13 @@ export class CourseIndexComponent implements OnInit {
   }
 
   /**
-   * show export courses from excel file
+   * show export roles from excel file
    *
    */
   archive(item) {
     let _this = this;
     Message.confirm(Helper.trans("are you sure to arhive this item"), ()=>{
-      _this.globalService.destroy("courses/delete", item.id).subscribe((r: any)=>{
+      _this.globalService.destroy("roles/delete", item.id).subscribe((r: any)=>{
         if (r.status == 1) {
           Message.success(r.message);
           this.get();
@@ -228,7 +207,7 @@ export class CourseIndexComponent implements OnInit {
   restore(item) {
     let _this = this;
     Message.confirm(Helper.trans("are to restore item from archive"), ()=>{
-      _this.globalService.destroy("courses/restore", item.id).subscribe((r: any)=>{
+      _this.globalService.destroy("roles/restore", item.id).subscribe((r: any)=>{
         if (r.status == 1) {
           Message.success(r.message);
           _this.getArchive();
@@ -241,21 +220,13 @@ export class CourseIndexComponent implements OnInit {
 
   /**
    * load all filter data
-   * load levels
-   * load types
-   * load departments
-   * load faculties
    */
   loadSettings() {
     this.get();
     //
-    this.globalService.get("levels").subscribe((r) => {
-      this.levels = r;
+    this.globalService.get("roles").subscribe((r) => {
+      this.roles = r;
     });
-    this.globalService.get("departments").subscribe((r) => {
-      this.departments = r;
-    });
-    this.types = ['normal', 'graduation'];
   }
 
   /**

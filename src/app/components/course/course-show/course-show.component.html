@@ -149,14 +149,16 @@
                  <th>{{ "code" | trans }}</th>
                  <th>{{ "level" | trans }}</th>
                  <th>{{ "department" | trans }}</th>
+                 <th>{{ "group" | trans }}</th>
                </thead>
                <tbody>
                 <tr *ngFor="let item of resource.students index as i" >
                   <td>{{ i + 1 }}</td>
                   <td>{{ item.name }}</td>
                   <td>{{ item.code }}</td>
-                  <td>{{ item.level? item.level.name : '' }}</td>
-                  <td>{{ item.department? item.department.name : '' }}</td>
+                  <td>{{ item.level }}</td>
+                  <td>{{ item.department }}</td>
+                  <td>{{ item.group_name }}</td>
                  </tr>
                </tbody>
              </table>
@@ -171,14 +173,16 @@
                 <th>{{ "phone" | trans }}</th>
                 <th>{{ "special" | trans }}</th>
                 <th>{{ "department" | trans }}</th>
+                <th>{{ "group" | trans }}</th>
               </thead>
               <tbody>
                 <tr *ngFor="let item of resource.doctors index as i" >
                   <td>{{ i + 1 }}</td>
                   <td>{{ item.name }}</td>
                   <td>{{ item.phone }}</td>
-                  <td>{{ item.special? item.special.name : '' }}</td>
-                  <td>{{ item.department? item.department.name : '' }}</td>
+                  <td>{{ item.special }}</td>
+                  <td>{{ item.division }}</td>
+                  <td>{{ item.group_name }}</td>
                 </tr>
               </tbody>
             </table>
@@ -196,12 +200,12 @@
 
 
 
-<app-import-excel [title]="'register student from excel file'" [templateUrl]="templateUrl" [data]="importData" ></app-import-excel>
+<app-import-excel [title]="'register student from excel file'" [action]="action" [templateUrl]="templateUrl" [apiUrl]="'student-registers/import'" [data]="importData" ></app-import-excel>
 
 
-<app-course-register-doctor></app-course-register-doctor>
+<app-course-register-doctor [course]="resource" ></app-course-register-doctor>
 
-<app-course-register-student></app-course-register-student>
+<app-course-register-student [course]="resource" ></app-course-register-student>
 
 <!--- choice category form -->
 <div class="modal fade" tabindex="-1" role="dialog" id="choiceCategoryModal" >

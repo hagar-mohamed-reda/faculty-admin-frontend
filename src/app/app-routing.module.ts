@@ -10,6 +10,7 @@ import { CourseIndexComponent } from './components/course/course-index/course-in
 import { CourseShowComponent } from './components/course/course-show/course-show.component';
 import { UserIndexComponent } from './components/user/user-index/user-index.component';
 import { MainPageComponent } from './core/components/main-page/main-page.component';
+import { RoleIndexComponent } from './components/role/role-index/role-index.component';
 
 const routes: Routes = [
 
@@ -49,6 +50,10 @@ const routes: Routes = [
       {
         path: 'users',
         component: UserIndexComponent
+      },
+      {
+        path: 'roles',
+        component: RoleIndexComponent
       },
      /* {
         path: 'dashboard',

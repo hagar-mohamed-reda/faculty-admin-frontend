@@ -69,7 +69,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-4" *ngFor="let item of divisions" >
                   <mat-slide-toggle
                     [(ngModel)]="item.selected"
-                    [checked]="item.selected">
+                    [checked]="selectedDivisions.has(item.id)">
                   </mat-slide-toggle>
                    {{ item.name }}
                 </div>

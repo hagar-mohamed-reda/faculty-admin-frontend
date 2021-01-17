@@ -7,34 +7,95 @@
       </div>
       <div class="modal-body">
         <ul class="w3-ul" >
-          <li>
-            <input type="text" class="app-form" placeholder="{{ 'search' | trans }}" >
+          <li class="w3-row w3-margin-bottom" >
+            <div class="col-lg-4">
+              <b>{{ 'search' | trans }}</b>
+              <input type="text"
+              class="app-form material-shadow"
+              style="border-radius: 5em;"
+              placeholder="{{ 'search' | trans }}" #search (keyup)="get({search: search.value})" >
+            </div>
+            <div class="col-lg-4">
+              <b>{{ 'special' | trans }}</b>
+              <select type="text"
+              class="app-form material-shadow"
+              [(ngModel)]="filter.special_id"
+              style="border-radius: 5em;"  #secial (change)="get({special_id: secial.value})"  >
+              <option value=""></option>
+              <option *ngFor="let item of specials" [value]="item.id">{{ item.name }}</option>
+              </select>
+            </div>
+            <div class="col-lg-4">
+              <b>{{ 'division' | trans }}</b>
+              <select type="text"
+              class="app-form material-shadow"
+              style="border-radius: 5em;"  #division (change)="get({division_id: division.value})" >
+              <option value=""></option>
+                <option  *ngFor="let item of divisions" [value]="item.id">{{ item.name }}</option>
+              </select>
+            </div>
           </li>
-          <li class="w3-display-container" >
+          <li class="w3-display-container" *ngFor="let item of doctors index as i" >
             <div class="media">
               <div class="media-left">
                 <a>
-                  <div class="w3-round" style="width: 40px;height: 40px;background-image: url(/assets/img/avatar.png);background-size: cover" ></div>
+                  <app-app-avatar
+                    [url]="item.photo? item.photo_url : '/assets/img/avatar.png'"
+                    [icon]="'fa fa-user-circle'"
+                    [class]="'w3-round'"
+                    [width]="'40px'"
+                    [height]="'40px'" ></app-app-avatar>
                 </a>
               </div>
               <div class="media-body">
-                <h4 class="media-heading">{{ "doctor name" }}</h4>
+                <h4 class="media-heading">{{ item.name }}</h4>
                 <table class="w3-tiny" >
                   <tr>
-                    <th>{{ "secial" | trans }} : first</th>
+                    <th>{{ "division" | trans }} : {{ item.division? item.division.name : '' }}</th>
+                  </tr>
+                  <tr>
+                    <th>{{ "special" | trans }} : {{ item.special? item.special.name : '' }}</th>
                   </tr>
                 </table>
               </div>
             </div>
             <div class="w3-display-topleft w3-padding">
-              <mat-slide-toggle [(ngModel)]="course.active" [checked]="course.active">
+              <select
+              [(ngModel)]="item.group_id"
+              (change)="assign(item, checked.checked)"
+              class="w3-white material-shadow" style="border-radius: 5em;padding: 5px!important;margin: 3px"  >
+                <option value=""></option>
+                <option *ngFor="let item of course.groups" [value]="item.id">{{ item.name }}</option>
+              </select>
+              <mat-slide-toggle
+              [(ngModel)]="item.is_register"
+              #checked
+              [disabled]="!item.group_id"
+              (change)="assign(item, checked.checked)"
+              [checked]="item.is_register">
               </mat-slide-toggle>
             </div>
           </li>
         </ul>
-      </div>
-      <div class="modal-footer w3-center">
-        <button mat-raised-button class="w3-indigo" >{{ "save" | trans }}</button>
+        <nav aria-label="Page navigation" class="w3-center text-center" >
+          <ul class="pagination">
+            <li>
+              <a  class="btn" [ngClass]="{'disabled': !response.prev_page}" (click)="get({page: response.prev_page})"
+                aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li *ngFor="let item of response.pages_arr">
+              <a class="btn" [ngClass]="{'active w3-indigo': response.current_page == item}" (click)="get({page: item})">{{ item }}</a>
+            </li>
+            <li>
+              <a  class="btn" [ngClass]="{'disabled': !response.next_page}" (click)="get({page: response.next_page})"
+                aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

@@ -35,6 +35,8 @@ import { CourseRegisterDoctorComponent } from './components/course/course-regist
 import { CourseRegisterStudentComponent } from './components/course/course-register-student/course-register-student.component';
 import { UserIndexComponent } from './components/user/user-index/user-index.component';
 import { UserFormComponent } from './components/user/user-form/user-form.component';
+import { RoleIndexComponent } from './components/role/role-index/role-index.component';
+import { RoleFormComponent } from './components/role/role-form/role-form.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { UserFormComponent } from './components/user/user-form/user-form.compone
     CourseRegisterDoctorComponent,
     CourseRegisterStudentComponent,
     UserIndexComponent,
-    UserFormComponent
+    UserFormComponent,
+    RoleIndexComponent,
+    RoleFormComponent
   ],
   imports: [
     BrowserModule,

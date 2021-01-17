@@ -1,0 +1,26 @@
+<div class="modal fade" id="{{ editable? 'roleEditModal' : 'roleAddModal' }}" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content light-gray">
+      <div class="modal-header w3-border-0" >
+        <button type="button" class="close w3-text-red" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">{{ title | trans }}</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table" >
+          <tr>
+            <th>{{ "name" | trans }} *</th>
+            <td>
+              <input type="text" class="app-form" [(ngModel)]="resource.name" >
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer w3-center">
+        <button mat-raised-button class="w3-indigo" [disabled]="isSubmitted" (click)="send()" >
+          <span *ngIf="!isSubmitted" >{{ "submit" | trans }}</span>
+          <span *ngIf="isSubmitted" class="fa fa-spin fa-spinner" ></span>
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

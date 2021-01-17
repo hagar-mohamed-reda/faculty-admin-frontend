@@ -29,6 +29,12 @@ export class CourseShowComponent implements OnInit {
   group = null;
 
   /**
+   * action
+   *
+   */
+  action = null;
+
+  /**
    * group object of view
    *
    */
@@ -58,6 +64,11 @@ export class CourseShowComponent implements OnInit {
     if (this.router.snapshot.paramMap.has("id")) {
       this.loadCourse(this.router.snapshot.paramMap.get("id"));
     }
+
+
+    this.action = () => {
+      this.loadCourse(this.resource.id);
+    };
   }
 
   getItem(item) {
