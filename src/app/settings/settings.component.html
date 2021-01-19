@@ -1,26 +1,5 @@
-<!--    <aside class="main-sidebar">-->
-<!--      &lt;!&ndash; sidebar: style can be found in sidebar.less &ndash;&gt;-->
-<!--      <section class="sidebar">-->
-<!--        &lt;!&ndash; Sidebar user panel &ndash;&gt;-->
-<!--        <div class="user-panel">-->
-<!--          <div class="pull-left image">-->
-<!--            <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">-->
-<!--          </div>-->
-<!--          <div class="pull-left info">-->
-<!--            <p>Alexander Pierce</p>-->
-<!--            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
-<!--          </div>-->
-<!--        </div>-->
 
-<!--        &lt;!&ndash; sidebar menu: : style can be found in sidebar.less &ndash;&gt;-->
-<!--        <ul class="sidebar-menu tree" data-widget="tree">-->
-<!--          <li class="header">الاعدادات الرئيسية</li>-->
-<!--          <li><a routerLink="/settings/country"><i class="fa fa-circle-o"></i> الدول </a></li>-->
-<!--          <li><a routerLink="/settings/city"><i class="fa fa-circle-o"></i> المدن </a></li>-->
-<!--        </ul>-->
-<!--      </section>-->
-<!--      &lt;!&ndash; /.sidebar &ndash;&gt;-->
-<!--    </aside>-->
+<app-edit-term></app-edit-term>
 <div class="content">
   <div class="row">
     <div class="col-md-2">
@@ -82,6 +61,12 @@
             <li class="list-group-item" *ngIf="auth.can(['translation'])">
               <a class="active" routerLink="/settings/translations"><i class="fa fa-circle-o"></i>
                 {{ "translations" | trans }}
+              </a>
+            </li>
+
+            <li class="list-group-item" *ngIf="auth.can(['current-term'])" (click)="$('.term-modal').slideDown(500);" >
+              <a class="active"  ><i class="fa fa-circle-o"></i>
+                {{ "current term" | trans }}
               </a>
             </li>
 

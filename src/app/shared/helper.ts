@@ -4,6 +4,7 @@ import { Translation } from './translation';
 
 export class Helper {
 
+  public static SETTING = {};
 
   /**
    *  reload angular component
@@ -122,6 +123,27 @@ export class Helper {
     resources.pages_arr = [];
     for(let i = 0; i < resources.pages; i ++)
       resources.pages_arr.push(i+1);
+  }
+
+  /**
+   * get over text if size bigger than text length
+   */
+  public static getOverText(text: string, size) {
+    let overtext = "";
+    if (text.length <= size) {
+      overtext = text;
+    } else {
+      overtext = text.substring(0, size) + "...";
+    }
+    return overtext;
+  }
+
+  public static loader(action) {
+    //let $: any = $;
+    if (action)
+      $('.app-loader').show(500);
+    else
+      $('.app-loader').hide(500);
   }
 }
 

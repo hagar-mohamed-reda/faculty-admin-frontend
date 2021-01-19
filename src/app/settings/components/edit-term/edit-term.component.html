@@ -1,0 +1,39 @@
+<div class="term-modal" style="display: none;" >
+  <div class="modal-dialog modal-sm">
+
+    <div class="modal-content w3-padding material-shadow w3-round term-modal-content" style="display: none;" >
+      <div class="modal-header text-center w3-xlarge">
+        {{ "change current term" | trans }}
+      </div>
+      <img src="/assets/img/term2.jpg" class="w3-block">
+      <br>
+      <div *ngIf="step == 1" class="w3-center" >
+        <b class="w3-block text-center" >
+          {{ "are you sure to change current term" | trans }}
+        </b>
+        <br>
+        <button mat-raised-button color="primary" (click)="goto(2)" style="margin: 3px" >{{ "next" | trans }}</button>
+        <button mat-raised-button  (click)="$('.term-modal').slideUp(500);" style="margin: 3px" >{{ "close" | trans }}</button>
+      </div>
+      <div *ngIf="step == 2" class="w3-center" >
+        <b class="w3-block text-center" >
+          {{ "note that current term is " | trans }} : {{ setting.term? setting.term.name : '' }}
+        </b>
+        <br>
+        <select class="app-form material-shadow" style="border-radius: 5em;" [(ngModel)]="term"  >
+          <option value="1" *ngIf="setting.term.id != 1" >{{ "first term" | trans }}</option>
+          <option value="2" *ngIf="setting.term.id != 2">{{ "second term" | trans }}</option>
+          <option value="3" *ngIf="setting.term.id != 3">{{ "third term" | trans }}</option>
+        </select>
+        <br>
+        <br>
+        <button mat-raised-button color="primary" (click)="updateTerm()" >{{ "change" | trans }}</button>
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+</div>

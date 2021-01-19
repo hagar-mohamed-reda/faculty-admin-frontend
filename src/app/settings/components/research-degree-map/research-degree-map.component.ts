@@ -12,7 +12,7 @@ export class ResearchDegreeMapComponent extends SettingTemplate implements OnIni
 
   constructor(public settingService: SettingService) {
     super(settingService);
-    this.baseUrl = "research-degree-map";
+    this.baseUrl = "research-degree-maps";
     this.requiredFields = ['name'];
     this.get();
   }

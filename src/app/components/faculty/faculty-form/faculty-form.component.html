@@ -1,0 +1,88 @@
+<div class="modal fade" id="{{ editable? 'facultyEditModal' : 'facultyAddModal' }}" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content light-gray">
+      <div class="modal-header w3-border-0" >
+        <button type="button" class="close w3-text-red" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">{{ title | trans }}</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table" >
+          <tr class="" >
+            <td  colspan="2" class="text-center w3-padding" >
+              <img [src]="resource.logo_url" class="w3-block" *ngIf="resource.logo_url" >
+              <button mat-raised-button style="border-radius: 5em;" (click)="$(editable? '.image-input' : '.edit-image-input').click()" >
+                <i class="fa fa-cloud-upload " ></i> {{ "upload image" | trans }}
+              </button>
+              <br>
+              <input type="file" class="app-form hidden {{ editable? 'image-input' : 'edit-image-input' }}" (change)="loadFile($event, 'logo')" [(ngModel)]="resource.logo" accept="image/*" >
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "name" | trans }} *</th>
+            <td>
+              <input type="text" class="app-form" [(ngModel)]="resource.name" >
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "description" | trans }} </th>
+            <td>
+              <textarea class="app-form" [(ngModel)]="resource.description" ></textarea>
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "message_text" | trans }} </th>
+            <td>
+              <textarea class="app-form" [(ngModel)]="resource.message_text" ></textarea>
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "vision_text" | trans }} </th>
+            <td>
+              <textarea class="app-form" [(ngModel)]="resource.vision_text" ></textarea>
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "target_text" | trans }} </th>
+            <td>
+              <textarea class="app-form" [(ngModel)]="resource.target_text" ></textarea>
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "message_file" | trans }} </th>
+            <td>
+              <input type="file" class="app-form"  (change)="loadFile($event, 'message_file')" >
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "vision_file" | trans }} </th>
+            <td>
+              <input type="file" class="app-form"  (change)="loadFile($event, 'vision_file')" >
+            </td>
+          </tr>
+          <tr>
+            <th>{{ "target_file" | trans }} </th>
+            <td>
+              <input type="file" class="app-form"  (change)="loadFile($event, 'target_file')" >
+            </td>
+          </tr>
+          <!--
+          <tr>
+            <th>{{ "faculty" | trans }}</th>
+            <td>
+              <select class="app-form" [(ngModel)]="resource.faculty_id">
+                <option *ngFor="let faculty of facultys" value="{{ faculty.id }}" >{{ faculty.name }}</option>
+              </select>
+            </td>
+          </tr>
+          -->
+        </table>
+      </div>
+      <div class="modal-footer w3-center">
+        <button mat-raised-button class="w3-indigo" [disabled]="isSubmitted" (click)="send()" >
+          <span *ngIf="!isSubmitted" >{{ "submit" | trans }}</span>
+          <span *ngIf="isSubmitted" class="fa fa-spin fa-spinner" ></span>
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -6,11 +6,11 @@ import { GlobalService } from 'src/app/shared/services/global.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-user-index',
-  templateUrl: './user-index.component.html',
-  styleUrls: ['./user-index.component.scss']
+  selector: 'app-faculty-index',
+  templateUrl: './faculty-index.component.html',
+  styleUrls: ['./faculty-index.component.scss']
 })
-export class UserIndexComponent implements OnInit {
+export class FacultyIndexComponent implements OnInit {
 
   /**
    * init jquery
@@ -40,7 +40,7 @@ export class UserIndexComponent implements OnInit {
    * filter inputs
    *
    */
-  public users: any = [];
+  public facultys: any = [];
 
   /**
    * filter inputs
@@ -55,43 +55,6 @@ export class UserIndexComponent implements OnInit {
   public resource: any = {};
 
   /**
-   * select item to edit it
-   *
-   */
-  public levels: any = [];
-
-  /**
-   * types of user
-   *
-   */
-  public types: any = [];
-
-  /**
-   * select item to edit it
-   *
-   */
-  public roles: any = [];
-
-
-  /**
-   * url of import from excel api
-   *
-   */
-  public importApi = "users/import";
-
-  /**
-   * url of excel template file
-   *
-   */
-  public importTemplateUrl = environment.apiUrl + "/users/import-file?api_token="+Auth.getApiToken();
-
-  /**
-   * url of export api
-   *
-   */
-  public exportApi = "users/export";
-
-  /**
    * url of export api
    *
    */
@@ -103,12 +66,7 @@ export class UserIndexComponent implements OnInit {
    */
   public reload = false;
 
-  /**
-   * url of export api
-   *
-   */
-  public archiveLoad = false;
-
+  helper: any = Helper;
 
   constructor(private globalService: GlobalService) {
     this.action = () => { this.get(); };
@@ -120,59 +78,46 @@ export class UserIndexComponent implements OnInit {
    */
   initBreadcrumbData() {
     this.breadcrumbData = [
-      {name: 'user page', url: '#'}
+      {name: 'faculty page', url: '#'}
     ];
   }
 
   /**
-   * load all user data
+   * load all faculty data
    *
    */
   get(data=null) {
     let params = (data)? data: this.filter;
     this.reload = true;
-    this.archiveLoad = false;
-    this.globalService.get("users", params).subscribe((res: any) => {
+    this.globalService.get("facultys", params).subscribe((res: any) => {
       this.response = res;
-      this.users = res.data;
+      this.facultys = res.data;
       this.reload = false;
       //
       this.prePagniation();
     });
   }
 
-  /**
-   * get all deleted users
-   *
-   */
-  getArchive() {
-    this.reload = true;
-    this.archiveLoad = true;
-    this.globalService.get("users/archive").subscribe((res) => {
-      this.users = res;
-      this.reload = false;
-    });
-  }
 
   /**
-   * show add user modal
+   * show add faculty modal
    *
    */
   create() {
-    this.$('#userAddModal').modal('show');
+    this.$('#facultyAddModal').modal('show');
   }
 
   /**
-   * show add user modal
+   * show add faculty modal
    *
    */
   edit(item) {
     this.resource = item;
-    this.$('#userEditModal').modal('show');
+    this.$('#facultyEditModal').modal('show');
   }
 
   /**
-   * show import users from excel file
+   * show import facultys from excel file
    *
    */
   import() {
@@ -180,7 +125,7 @@ export class UserIndexComponent implements OnInit {
   }
 
   /**
-   * show export users from excel file
+   * show export facultys from excel file
    *
    */
   export() {
@@ -188,13 +133,13 @@ export class UserIndexComponent implements OnInit {
   }
 
   /**
-   * show export users from excel file
+   * show export facultys from excel file
    *
    */
   archive(item) {
     let _this = this;
     Message.confirm(Helper.trans("are you sure to arhive this item"), ()=>{
-      _this.globalService.destroy("users/delete", item.id).subscribe((r: any)=>{
+      _this.globalService.destroy("facultys/delete", item.id).subscribe((r: any)=>{
         if (r.status == 1) {
           Message.success(r.message);
           this.get();
@@ -212,7 +157,7 @@ export class UserIndexComponent implements OnInit {
   restore(item) {
     let _this = this;
     Message.confirm(Helper.trans("are to restore item from archive"), ()=>{
-      _this.globalService.destroy("users/restore", item.id).subscribe((r: any)=>{
+      _this.globalService.destroy("facultys/restore", item.id).subscribe((r: any)=>{
         if (r.status == 1) {
           Message.success(r.message);
           _this.getArchive();
@@ -229,9 +174,6 @@ export class UserIndexComponent implements OnInit {
   loadSettings() {
     this.get();
     //
-    this.globalService.get("roles").subscribe((r: any) => {
-      this.roles = r.data;
-    });
   }
 
   /**
@@ -242,18 +184,11 @@ export class UserIndexComponent implements OnInit {
     console.log(this.response);
   }
 
-  setDataContainerStyle() {
-    let height = (window.innerHeight - 250) + "px";
-    this.document.nicescroll('.data-container', {height: height});
-  }
 
   ngOnInit() {
     this.initBreadcrumbData();
     this.loadSettings();
     let _this = this;
     //
-    setTimeout(()=>{
-      _this.setDataContainerStyle();
-    }, 500);
   }
 }

@@ -11,6 +11,7 @@ import { CourseShowComponent } from './components/course/course-show/course-show
 import { UserIndexComponent } from './components/user/user-index/user-index.component';
 import { MainPageComponent } from './core/components/main-page/main-page.component';
 import { RoleIndexComponent } from './components/role/role-index/role-index.component';
+import { FacultyIndexComponent } from './components/faculty/faculty-index/faculty-index.component';
 
 const routes: Routes = [
 
@@ -54,6 +55,10 @@ const routes: Routes = [
       {
         path: 'roles',
         component: RoleIndexComponent
+      },
+      {
+        path: 'faculty',
+        component: FacultyIndexComponent
       },
      /* {
         path: 'dashboard',

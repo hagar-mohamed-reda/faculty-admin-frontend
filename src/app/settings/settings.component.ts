@@ -10,10 +10,12 @@ export class SettingsComponent implements OnInit {
 
   public auth: any = Auth;
 
+  $: any = $;
+
 
   constructor() { }
-  
+
   ngOnInit() {
   }
 
-}  
+}

@@ -21,11 +21,11 @@ export class AuthService {
   }
 
   login(userLogin: any)  {
-    return this.http.post('auth/login', userLogin);
+    return this.http.post('login', userLogin);
   }
 
   confirmEmail(confirmEmail: { code: string }) {
-    return this.http.post('auth/confirmEmail', confirmEmail);
+    return this.http.post('confirmEmail', confirmEmail);
   }
 
   isAuth() {

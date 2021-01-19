@@ -1,0 +1,102 @@
+<app-breadcrumb [breadcrumbList]="breadcrumbData"  ></app-breadcrumb>
+
+<div class="w3-light-gray w3-block w3-padding filter-section" style="padding: 5px" >
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6">
+      <label class="w3-text-dark-gray" >{{ 'search with name' | trans }}</label>
+      <input type="text"  class="app-select"  [(ngModel)]="filter.search" >
+    </div>
+
+  </div>
+  <br>
+</div>
+<div class="w3-row">
+
+  <div class="col-lg-3 col-md-3 w3-padding">
+    <div class="w3-light-gray w3-round-large w3-padding">
+
+      <button mat-raised-button [disabled]="reload" class="w3-block w3-dark-gray w3-row app-button" (click)="get()" >
+        <b class="w3-right" >{{ "reload" | trans }}</b>
+        <i class="fa fa-refresh w3-left" style="padding-top: 10px;" *ngIf="!reload" ></i>
+        <i class="fa fa-refresh fa-spin w3-left" style="padding-top: 10px;" *ngIf="reload" ></i>
+      </button>
+
+      <button mat-raised-button class="w3-block w3-indigo w3-row app-button" (click)="create()" >
+        <b class="w3-right" >{{ "add faculty" | trans }}</b>
+        <i class="fa fa-plus-circle w3-left" style="padding-top: 10px;" ></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="col-lg-9 col-md-9 data-container" style="overflow: auto;" >
+    <div class="row w3-padding">
+      <div class="col-lg-12 w3-padding text-center w3-xlarge theme-text-dark" *ngIf="reload" >
+        <span class="fa fa-spin fa-spinner" ></span>
+      </div>
+
+      <div class="col-lg-12 w3-padding text-center w3-xlarge theme-text-dark" *ngIf="!reload && facultys.length <= 0" >
+        <span class="" >{{ "there is no data" | trans }}</span>
+      </div>
+
+      <ng-container  *ngFor="let item of facultys index as i">
+        <div class="col-lg-3 col-md-3 col-sm-6"
+        style="padding: 5px"
+        *ngIf="!reload" >
+          <div class="material-shadow w3-white w3-round w3-display-container">
+            <a   >
+              <app-app-avatar
+              [url]="item.logo_url"
+              [icon]="'fa fa-faculty'"
+              [class]="'w3-round'"
+              [width]="'100%'"
+              [height]="'200px'" ></app-app-avatar>
+            </a>
+            <div class="w3-center w3-large">
+               {{ helper.getOverText(item.name, 20) }}
+            </div>
+            <div class="w3-center">
+              <button class="btn fa fa-edit w3-orange material-shadow " style="padding: 5px!important;margin: 5px" (click)="edit(item)" ></button>
+              <button class="btn fa fa-desktop w3-green material-shadow hidden" style="padding: 5px!important;margin: 5px" ></button>
+              <button class="btn fa fa-trash w3-red material-shadow" style="padding: 5px!important;margin: 5px" (click)="archive(item)" ></button>
+            </div>
+
+            <div class="w3-display-topleft w3-padding" *ngIf="item.deleted_at" >
+              <span class="label label-danger" >{{ "archive" | trans }}</span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+
+    </div>
+  </div>
+
+  <div class="col-lg-12 col-md-12 col-sm-12 text-center w3-center"   >
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li>
+          <a  class="btn" [ngClass]="{'disabled': !response.prev_page}" (click)="get({page: response.prev_page})"
+            aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li *ngFor="let item of response.pages_arr">
+          <a class="btn" [ngClass]="{'active w3-indigo': response.current_page == item}" (click)="get({page: item})">{{ item }}</a>
+        </li>
+        <li>
+          <a  class="btn" [ngClass]="{'disabled': !response.next_page}" (click)="get({page: response.next_page})"
+            aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+</div>
+
+
+
+<app-faculty-form [title]="'add faculty'" [action]="action" ></app-faculty-form>
+
+<app-faculty-form [title]="'edit faculty'" [editable]="true" [resource]="resource" [action]="action" ></app-faculty-form>

@@ -37,6 +37,9 @@ import { UserIndexComponent } from './components/user/user-index/user-index.comp
 import { UserFormComponent } from './components/user/user-form/user-form.component';
 import { RoleIndexComponent } from './components/role/role-index/role-index.component';
 import { RoleFormComponent } from './components/role/role-form/role-form.component';
+import { PermissionComponent } from './components/role/permission/permission.component';
+import { FacultyIndexComponent } from './components/faculty/faculty-index/faculty-index.component';
+import { FacultyFormComponent } from './components/faculty/faculty-form/faculty-form.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +60,10 @@ import { RoleFormComponent } from './components/role/role-form/role-form.compone
     UserIndexComponent,
     UserFormComponent,
     RoleIndexComponent,
-    RoleFormComponent
+    RoleFormComponent,
+    PermissionComponent,
+    FacultyIndexComponent,
+    FacultyFormComponent
   ],
   imports: [
     BrowserModule,
