@@ -10,8 +10,10 @@
           <img class="profile-user-img img-responsive img-circle" [src]="resource.photo ? resource.photo_url : '/assets/img/application.gif'" alt="User profile picture">
 
           <h3 class="profile-username text-center">{{ resource.name }}</h3>
-
-
+          <!--
+          <br>
+          <h4 class="profile-username text-center">{{ resource.code }}</h4>
+        -->
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
               <b>{{ "student register" | trans }}</b> <a class="pull-left">{{ resource.register_student_count | number }}</a>
@@ -97,7 +99,7 @@
           <div class="active tab-pane" id="groups">
             <table class=" table-bordered" >
               <thead>
-                <th>#</th>
+                <th>{{ "code" | trans }}</th>
                 <th>{{ "name" | trans }}</th>
                 <th class="hidden" >{{ "number" | trans }}</th>
                 <th></th>
@@ -105,7 +107,7 @@
               <tbody>
                 <ng-container *ngFor="let item of group.data index as i" >
                   <tr  >
-                    <td>{{ i + 1 }}</td>
+                    <td>{{ item.id }}</td>
                     <td>
                       <input type="text"  class="app-form input-sm" [(ngModel)]="item.name" >
                     </td>

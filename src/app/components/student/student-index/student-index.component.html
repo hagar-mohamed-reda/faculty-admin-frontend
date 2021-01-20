@@ -29,10 +29,11 @@
         <option *ngFor="let item of types" value="{{ item }}" >{{ item | trans }}</option>
       </select>
     </div>
-    <div class="col-lg-2 col-md-2 col-sm-6">
+    <div class="col-lg-2 col-md-2 col-sm-6" permission role="super_admin" >
       <label class="w3-text-dark-gray" >{{ "search with faculty" | trans }}</label>
       <select class="app-select" [(ngModel)]="filter.faculty_id" >
         <option value="">{{ "faculty" | trans }}</option>
+        <option *ngFor="let item of faculties" value="{{ item.id }}">{{ item.name }}</option>
       </select>
     </div>
   </div>
@@ -98,7 +99,7 @@
               </a>
             </div>
             <div class="media-body w3-padding">
-              <h5 class="media-heading w3-">{{ item.name }}</h5>
+              <h5 class="media-heading w3-">{{ helper.getOverText(item.name, 10) }}</h5>
               <table class="w3-tiny" >
                 <tr>
                   <th>{{ "level" | trans }} : {{ item.level? item.level.name : item.level_id }}</th>

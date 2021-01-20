@@ -92,6 +92,7 @@ export class CourseShowComponent implements OnInit {
     this.globalService.get('courses/'+id).subscribe((res: any) => {
       this.resource = res;
       this.group.get({course_id: this.resource.id});
+      this.importData.course_id = this.resource.id;
       this.initBreadcrumbData();
     });
   }
@@ -103,7 +104,7 @@ export class CourseShowComponent implements OnInit {
   initBreadcrumbData() {
     this.breadcrumbData = [
       {name: "courses", url: "/courses"},
-      {name: this.resource.name, url: '#', active: 1}
+      {name: this.resource.name, url: '#', active: 1, trans: false}
     ];
   }
 

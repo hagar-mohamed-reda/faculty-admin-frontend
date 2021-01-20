@@ -16,6 +16,7 @@ export class ImportExcelComponent implements OnInit {
    */
   @Input() title = "";
 
+
   /**
    * url of api to import excel file
    *
@@ -47,6 +48,12 @@ export class ImportExcelComponent implements OnInit {
   $: any  = $;
 
   /**
+   * init jquery
+   *
+   */
+  doc: any  = document;
+
+  /**
    * current step of import steps
    *
    */
@@ -63,6 +70,12 @@ export class ImportExcelComponent implements OnInit {
    *
    */
   isSubmitted: boolean = false;
+
+  /**
+   * is the file uploading to server
+   *
+   */
+  excelRows: any = [];
 
   constructor(private excelService: ExcelService) { }
 
@@ -94,10 +107,24 @@ export class ImportExcelComponent implements OnInit {
    *
    */
   changeFile(event) {
+    if (!event.target.files[0])
+      return;
     this.resource.file = event.target.files[0];
     //
+    this.readExcelFile(event.target.files[0]);
     console.log(event);
     Helper.setFile(event, 'file', this.resource);
+  }
+
+  /**
+   * read excel file
+   */
+  readExcelFile(file) {
+    var self = this;
+    this.doc.readXlsxFile(file).then((rows) => {
+      console.log(rows);
+      self.excelRows = rows;
+    })
   }
 
   /**

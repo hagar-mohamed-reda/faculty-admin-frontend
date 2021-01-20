@@ -73,6 +73,7 @@ export class DoctorIndexComponent implements OnInit {
   public divisons: any = [];
   public degrees: any = [];
   public specials: any = [];
+  public faculties: any = [];
 
   /**
    * fields of doctor table
@@ -262,6 +263,9 @@ export class DoctorIndexComponent implements OnInit {
     });
     this.globalService.get("divisions").subscribe((r) => {
       this.divisons = r;
+    });
+    this.globalService.get("facultys").subscribe((r: any) => {
+      this.faculties = r.data;
     });
   }
 

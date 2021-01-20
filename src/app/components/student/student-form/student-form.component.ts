@@ -53,6 +53,7 @@ export class StudentFormComponent implements OnInit {
    *
    */
   send() {
+    console.log(this.resource);
     if (this.editable) {
       this.update();
     } else {

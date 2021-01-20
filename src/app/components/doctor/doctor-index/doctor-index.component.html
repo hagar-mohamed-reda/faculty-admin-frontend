@@ -29,12 +29,14 @@
         </ng-container>
       </select>
     </div>
-    <div class="col-lg-2 col-md-2 col-sm-6">
+    <div class="col-lg-2 col-md-2 col-sm-6" permission role="super_admin" >
       <label class="w3-text-dark-gray" >{{ "search with faculty" | trans }}</label>
       <select class="app-select" [(ngModel)]="filter.faculty_id" >
         <option value="">{{ "faculty" | trans }}</option>
+        <option *ngFor="let item of faculties" value="{{ item.id }}">{{ item.name }}</option>
       </select>
     </div>
+
   </div>
   <br>
 </div>

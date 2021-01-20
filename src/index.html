@@ -47,6 +47,12 @@
   <style id="theme" >
 
   </style>
+
+  <style  >
+    body {
+      padding-right: 0px!important;
+    }
+  </style>
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 <body class="hold-transition skin-blue layout-top-nav">
@@ -75,6 +81,7 @@
   <script src="assets/js/jquery.nicescroll.iframehelper.min.js"></script>
   <script src="assets/js/print.min.js"></script>
   <script src="assets/js/select2.min.js"></script>
+  <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
 
   <!--
   <script src="https://code.responsivevoice.org/responsivevoice.js?key=IqzcmmiC"></script>
@@ -182,6 +189,7 @@
     };
     document.jq = $;
     document.jquery = $;
+    document.readXlsxFile = readXlsxFile;
     document.say = function(word) {
       responsiveVoice.speak(word, "Arabic Female");
     };

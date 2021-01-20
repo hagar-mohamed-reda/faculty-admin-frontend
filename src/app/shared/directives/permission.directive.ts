@@ -10,10 +10,14 @@ export class PermissionDirective {
 
   constructor(private el: ElementRef) {
     let permission = el.nativeElement.getAttribute('permission');
-    console.log(permission);
-    //console.log(!Auth.can(this.permission));
+    let role = el.nativeElement.getAttribute('role');
+
     if (!Auth.can(permission))
       el.nativeElement.remove();
+
+    if (Auth.user().type != role) {
+      el.nativeElement.remove();
+    }
   }
 
 }

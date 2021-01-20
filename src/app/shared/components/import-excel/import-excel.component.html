@@ -45,13 +45,21 @@
             <input type="file" (change)="changeFile($event)"  id="importExcelFileInput" class="hidden" accept=".xlsx, .xls, .csv" >
           </div>
           <br>
-          <br>
           <ul>
             <li>
               تاكد من ملفك ان يكون نفس التنسيق الخاص بالقالب
             </li>
           </ul>
           <br>
+          <table class="table table-bordered" >
+            <tr *ngFor="let row of excelRows index as i" class="{{ i == 0? 'w3-black' : '' }}" >
+              <td  *ngFor="let col of row" >
+                {{ col }}
+              </td>
+            </tr>
+          </table>
+          <br>
+
           <div class="modal-footer w3-center">
             <button
             mat-raised-button

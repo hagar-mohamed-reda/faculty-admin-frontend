@@ -160,7 +160,6 @@ export class FacultyIndexComponent implements OnInit {
       _this.globalService.destroy("facultys/restore", item.id).subscribe((r: any)=>{
         if (r.status == 1) {
           Message.success(r.message);
-          _this.getArchive();
         }
         else
           Message.error(r.message);

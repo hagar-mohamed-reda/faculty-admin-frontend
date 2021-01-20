@@ -16,6 +16,12 @@ export class StudentIndexComponent implements OnInit {
    * init jquery
    *
    */
+  public helper: any = Helper;
+
+  /**
+   * init jquery
+   *
+   */
   public $: any = $;
 
   /**
@@ -128,6 +134,12 @@ export class StudentIndexComponent implements OnInit {
    *
    */
   public archiveLoad = false;
+
+  /**
+   * faculties
+   *
+   */
+  public faculties = false;
 
 
   constructor(private globalService: GlobalService) {
@@ -258,6 +270,9 @@ export class StudentIndexComponent implements OnInit {
     });
     this.globalService.get("departments").subscribe((r) => {
       this.departments = r;
+    });
+    this.globalService.get("facultys").subscribe((r: any) => {
+      this.faculties = r.data;
     });
     this.types = ['normal', 'graduation'];
   }

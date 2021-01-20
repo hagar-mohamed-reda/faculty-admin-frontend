@@ -124,6 +124,8 @@ export class CourseIndexComponent implements OnInit {
    *
    */
   public archiveLoad = false;
+  public faculties = [];
+  public helper: any = Helper;
 
 
   constructor(private globalService: GlobalService) {
@@ -255,6 +257,9 @@ export class CourseIndexComponent implements OnInit {
     this.globalService.get("departments").subscribe((r) => {
       this.departments = r;
     });
+    this.globalService.get("facultys").subscribe((r: any) => {
+      this.faculties = r.data;
+    });
     this.types = ['normal', 'graduation'];
   }
 
@@ -278,6 +283,7 @@ export class CourseIndexComponent implements OnInit {
     //
     setTimeout(()=>{
       _this.setDataContainerStyle();
-    }, 500);
+      _this.$('[data-toggle="tooltip"]').tooltip();
+    }, 1000);
   }
 }
